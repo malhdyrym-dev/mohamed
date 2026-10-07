@@ -733,7 +733,7 @@
         <div class="row g-2">
           
           <div class="col-12 mb-1">
-            <label class="form-label small fw-bold text-dark">هل أنت عضو أم مواطن صحفي؟</label>
+            <label class="form-label small fw-bold text-dark">عضو / مواطن صحفي؟</label>
             <select id="reporterTypeSelect" class="form-select form-select-sm fw-bold border-warning text-dark" onchange="toggleReporterTypeFields(this.value)">
               <option value="member">عضو (يطلب الرقم التعريفي وللنشر المباشر تلقائياً)</option>
               <option value="citizen">مواطن صحفي (يطلب اسم الناشر فقط)</option>
@@ -844,8 +844,8 @@
         <div class="col-lg-8 mx-auto text-center">
           
           <div class="d-flex justify-content-center align-items-center gap-4 mb-3">
-            <img id="displayFacultyLogo" src="" alt="شعار الكلية" style="max-height: 70px; object-fit: contain;" class="d-none">
-            <img id="displayUniversityLogo" src="" alt="شعار الجامعة" style="max-height: 70px; object-fit: contain;" class="d-none">
+            <img id="displayFacultyLogo" src="" alt="شعار الكلية" style="max-height: 70px; object-fit: contain;" class="d-none cursor-pointer" onclick="openZoomImage(this.src)">
+            <img id="displayUniversityLogo" src="" alt="شعار الجامعة" style="max-height: 70px; object-fit: contain;" class="d-none cursor-pointer" onclick="openZoomImage(this.src)">
           </div>
 
           <h5 class="fw-bold text-primary mb-2" id="displayAboutTitle">
@@ -879,7 +879,7 @@
           <h4 class="fw-bold mb-2" id="modalTitle">عنوان الخبر</h4>
           
           <div class="d-flex align-items-center gap-2 mb-3 p-2 bg-light rounded-3">
-            <img id="modalAuthorPhoto" src="" style="width: 36px; height: 36px; border-radius: 50%; object-fit: cover; border: 2px solid var(--primary-orange);" class="d-none">
+            <img id="modalAuthorPhoto" src="" style="width: 36px; height: 36px; border-radius: 50%; object-fit: cover; border: 2px solid var(--primary-orange);" class="d-none cursor-pointer" onclick="openZoomImage(this.src)">
             <div>
               <div class="small fw-bold text-dark" id="modalAuthorName">الناشر</div>
               <div class="text-muted" style="font-size: 0.7rem;" id="modalNewsDate">التاريخ</div>
@@ -1009,8 +1009,8 @@
   <!-- Bottom Nav -->
   <div class="bottom-nav">
     <a href="#" class="nav-item-btn active" onclick="showMainFeedView(); return false;"><i class="fa-solid fa-house"></i>الرئيسية</a>
-    <a href="https://wa.me/201551730117" target="_blank" class="nav-item-btn text-success" title="تواصل معنا"><i class="fa-brands fa-whatsapp text-success"></i>تواصل</a>
-    <a href="#reporterSection" class="nav-item-btn" onclick="showReporterSection(); return false;"><i class="fa-solid fa-paper-plane"></i>المراسلون</a>
+    <a href="https://wa.me/201551730117" target="_blank" class="nav-item-btn text-success" title="تواصل معنا"><i class="fa-brands fa-whatsapp text-success"></i>تواصل معنا</a>
+    <a href="#reporterSection" class="nav-item-btn" onclick="showReporterSection(); return false;"><i class="fa-solid fa-paper-plane"></i>شارك خبر</a>
     <a href="#teamSection" class="nav-item-btn" onclick="scrollToTeamSection(); return false;"><i class="fa-solid fa-users"></i>الأعضاء</a>
     <a href="#aboutSection" class="nav-item-btn" onclick="scrollToAboutSection(); return false;"><i class="fa-solid fa-circle-info"></i>لمحة</a>
   </div>
@@ -1875,7 +1875,7 @@
               
               <div class="d-flex justify-content-between align-items-center text-muted small border-top pt-2">
                 <div class="d-flex align-items-center gap-1">
-                  <img src="${authorPhoto}" style="width: 24px; height: 24px; border-radius: 50%; object-fit: cover;" onerror="this.src='https://via.placeholder.com/150'">
+                  <img src="${authorPhoto}" class="cursor-pointer" style="width: 24px; height: 24px; border-radius: 50%; object-fit: cover;" onclick="openZoomImage('${authorPhoto}')" title="انقر لتكبير الصورة" onerror="this.src='https://via.placeholder.com/150'">
                   <span>${item.author || 'المحرر'}</span>
                 </div>
                 <span>${new Date(item.createdAt || Date.now()).toLocaleDateString('ar-EG')}</span>
@@ -2108,71 +2108,103 @@
         category: category,
         author: author,
         authorPhotoUrl: authorPhotoUrl,
-        summary: body.replace(/<[^>]*>?/gm, '').substring(0, 120) + '...',
+        summary: body.replace(/<[^>]*>?/gm, '').substring(0, 150) + '...',
         body: body,
         imageUrl: imageUrl,
         videoUrl: videoUrl,
         audioUrl: audioUrl,
         extraImages: extraImages,
         status: isApprovedDirectly ? 'approved' : 'pending',
-        reactions: { love: 0, like: 0, dislike: 0 },
-        createdAt: Date.now()
+        createdAt: Date.now(),
+        reactions: { love: 0, like: 0, dislike: 0 }
       };
 
       db.ref('news').push(reportPayload).then(() => {
         if (isApprovedDirectly) {
-          alert("تم إرسال ونشر الخبر بنجاح بصففتك مراسلاً معلماً!");
+          alert("تم اعتماد تقريرك ونشره مباشرة بنجاح بفضل مطابقة الرقم التعريفي!");
         } else {
-          alert("تم إرسال تقريرك بنجاح وسيتم نشره فور مراجعته من قبل الأدمن.");
+          alert("تم إرسال تقريرك بنجاح وسيتم مراجعته ونشره من قِبل الأدمن قريباً.");
         }
         document.getElementById('reporterNewsTitle').value = '';
+        document.getElementById('reporterAuthor').value = '';
         document.getElementById('reporterNewsBodyEditor').innerHTML = '';
         document.getElementById('reporterNewsImgUrl').value = '';
         document.getElementById('reporterNewsVideoUrl').value = '';
         document.getElementById('reporterNewsAudioUrl').value = '';
         document.getElementById('reporterExtraImagesContainer').innerHTML = '';
+        document.getElementById('reporterSecretIdInput').value = '';
       });
     }
 
     function listenToTeamMembers() {
       db.ref('teamMembers').on('value', (snapshot) => {
         teamMembersData = snapshot.val() || {};
-        renderTeamGrids();
-        renderAdminTeamMembersList();
+        renderTeamSection();
+        renderAdminTeamMemberList();
       });
     }
 
-    function renderTeamGrids() {
+    function renderTeamSection() {
       const supervisorsGrid = document.getElementById('supervisorsGrid');
       const adminGrid = document.getElementById('adminGrid');
       const editorsGrid = document.getElementById('editorsGrid');
 
-      if (!supervisorsGrid) return;
+      if (!supervisorsGrid || !adminGrid || !editorsGrid) return;
 
       let supHtml = '';
       let admHtml = '';
-      let edtHtml = '';
+      let edHtml = '';
 
       Object.keys(teamMembersData).forEach(key => {
         const m = teamMembersData[key];
-        const card = `
+        const photo = m.photoUrl ? m.photoUrl : 'https://via.placeholder.com/150';
+        
+        const cardHtml = `
           <div class="col-md-4 col-6">
-            <div class="card p-2 text-center h-100 shadow-sm border-0 bg-white">
-              <img src="${m.photoUrl || 'https://via.placeholder.com/150'}" class="rounded-circle mx-auto mb-2" style="width: 70px; height: 70px; object-fit: cover; border: 2px solid var(--primary-orange);">
-              <h6 class="fw-bold mb-1 text-dark small">${m.name}</h6>
-              <p class="text-muted mb-0" style="font-size: 0.75rem;">${m.role}</p>
+            <div class="card p-2 text-center h-100 shadow-sm border rounded-3">
+              <img src="${photo}" class="mx-auto rounded-circle mb-2 cursor-pointer shadow-sm" style="width: 75px; height: 75px; object-fit: cover; border: 2px solid var(--primary-orange);" onclick="openZoomImage('${photo}')" title="انقر لتكبير الصورة" onerror="this.src='https://via.placeholder.com/150'">
+              <h6 class="fw-bold mb-1 small text-dark">${m.name}</h6>
+              <div class="text-muted" style="font-size: 0.75rem;">${m.role}</div>
             </div>
           </div>
         `;
 
-        if (m.section === 'supervisors') supHtml += card;
-        else if (m.section === 'admin') admHtml += card;
-        else edtHtml += card;
+        if (m.section === 'supervisors') supHtml += cardHtml;
+        else if (m.section === 'admin') admHtml += cardHtml;
+        else edHtml += cardHtml;
       });
 
       supervisorsGrid.innerHTML = supHtml || '<div class="text-muted small">لا يوجد مشرفون مسجلون.</div>';
       adminGrid.innerHTML = admHtml || '<div class="text-muted small">لا يوجد أدمن مسجل.</div>';
-      editorsGrid.innerHTML = edtHtml || '<div class="text-muted small">لا يوجد محررون مسجلون.</div>';
+      editorsGrid.innerHTML = edHtml || '<div class="text-muted small">لا يوجد محررون مسجلون.</div>';
+    }
+
+    function renderAdminTeamMemberList() {
+      const container = document.getElementById('adminTeamMemberList');
+      if (!container) return;
+
+      const keys = Object.keys(teamMembersData);
+      if (keys.length === 0) {
+        container.innerHTML = `<div class="text-center py-2 text-muted small">لا توجد أعضاء مضافون.</div>`;
+        return;
+      }
+
+      container.innerHTML = keys.map(key => {
+        const m = teamMembersData[key];
+        return `
+          <div class="d-flex justify-content-between align-items-center p-2 mb-2 bg-light border rounded">
+            <div>
+              <span class="fw-bold text-dark small">${m.name}</span>
+              <span class="badge bg-secondary ms-1" style="font-size: 0.65rem;">${m.role}</span>
+              <span class="badge bg-danger ms-1" style="font-size: 0.65rem;">ID: ${m.secretId || 'بدون'}</span>
+            </div>
+            <div class="d-flex gap-1">
+              <button class="btn btn-sm btn-outline-primary py-0 px-2 small fw-bold" onclick="editTeamMember('${key}')"><i class="fa-solid fa-pen"></i></button>
+              <button class="btn btn-sm btn-outline-danger py-0 px-2 small fw-bold" onclick="deleteTeamMember('${key}')"><i class="fa-solid fa-trash"></i></button>
+            </div>
+          </div>
+        `;
+      }).join('');
     }
 
     function handleAddTeamMember(e) {
@@ -2187,7 +2219,13 @@
       const photoUrl = document.getElementById('memberPhotoUrl').value;
 
       const memberPayload = {
-        name, role, section, username, password, secretId, photoUrl: photoUrl || (editingKey && teamMembersData[editingKey] ? teamMembersData[editingKey].photoUrl : '')
+        name: name,
+        role: role,
+        section: section,
+        username: username,
+        password: password,
+        secretId: secretId,
+        photoUrl: photoUrl
       };
 
       if (editingKey) {
@@ -2203,34 +2241,6 @@
       }
     }
 
-    function renderAdminTeamMembersList() {
-      const container = document.getElementById('adminTeamMemberList');
-      if (!container) return;
-
-      const keys = Object.keys(teamMembersData);
-      if (keys.length === 0) {
-        container.innerHTML = `<div class="text-muted small text-center py-2">لا توجد أعضاء مسجلة حالياً.</div>`;
-        return;
-      }
-
-      container.innerHTML = keys.map(key => {
-        const m = teamMembersData[key];
-        return `
-          <div class="p-2 mb-2 border rounded bg-light d-flex justify-content-between align-items-center">
-            <div>
-              <span class="fw-bold text-dark small">${m.name}</span>
-              <span class="badge bg-secondary ms-1 small">${m.role}</span>
-              <div class="text-muted" style="font-size: 0.7rem;">الكود: <span class="text-danger fw-bold">${m.secretId || 'بدون'}</span> | اليوزر: ${m.username || 'بدون'}</div>
-            </div>
-            <div>
-              <button class="btn btn-sm btn-outline-primary py-0 px-2 fw-bold small me-1" onclick="editTeamMember('${key}')"><i class="fa-solid fa-pen"></i></button>
-              <button class="btn btn-sm btn-outline-danger py-0 px-2 fw-bold small" onclick="deleteTeamMember('${key}')"><i class="fa-solid fa-trash"></i></button>
-            </div>
-          </div>
-        `;
-      }).join('');
-    }
-
     function editTeamMember(key) {
       const m = teamMembersData[key];
       if (!m) return;
@@ -2244,7 +2254,7 @@
       document.getElementById('memberSecretId').value = m.secretId || '';
       document.getElementById('memberPhotoUrl').value = m.photoUrl || '';
 
-      document.getElementById('saveMemberBtn').innerText = "تعديل وحفظ";
+      document.getElementById('saveMemberBtn').innerText = "حفظ التعديلات";
       document.getElementById('cancelMemberEditBtn').classList.remove('d-none');
     }
 
@@ -2258,25 +2268,27 @@
 
     function deleteTeamMember(key) {
       if (confirm("هل تريد حذف هذا العضو؟")) {
-        db.ref(`teamMembers/${key}`).remove();
+        db.ref(`teamMembers/${key}`).remove().then(() => {
+          alert("تم حذف العضو بنجاح.");
+        });
       }
     }
 
     function listenToUiSettings() {
       db.ref('settings/ui').on('value', (snapshot) => {
-        const val = snapshot.val();
-        if (val) {
-          if (val.headerTitle) {
-            document.getElementById('displayHeaderTitle').innerText = val.headerTitle;
-            document.getElementById('inputHeaderTitle').value = val.headerTitle;
+        const ui = snapshot.val();
+        if (ui) {
+          if (ui.headerTitle) {
+            document.getElementById('displayHeaderTitle').innerText = ui.headerTitle;
+            document.getElementById('inputHeaderTitle').value = ui.headerTitle;
           }
-          if (val.headerSubtitle) {
-            document.getElementById('displayHeaderSubtitle').innerText = val.headerSubtitle;
-            document.getElementById('inputHeaderSubtitle').value = val.headerSubtitle;
+          if (ui.headerSubtitle) {
+            document.getElementById('displayHeaderSubtitle').innerText = ui.headerSubtitle;
+            document.getElementById('inputHeaderSubtitle').value = ui.headerSubtitle;
           }
-          if (val.tickerText) {
-            document.getElementById('displayTickerText').innerText = val.tickerText;
-            document.getElementById('inputTickerText').value = val.tickerText;
+          if (ui.tickerText) {
+            document.getElementById('displayTickerText').innerText = ui.tickerText;
+            document.getElementById('inputTickerText').value = ui.tickerText;
           }
         }
       });
@@ -2284,47 +2296,53 @@
 
     function listenToAboutSettings() {
       db.ref('settings/about').on('value', (snapshot) => {
-        const val = snapshot.val();
-        if (val) {
-          if (val.title) {
-            document.getElementById('displayAboutTitle').innerHTML = `<i class="fa-solid fa-circle-info me-1"></i> ${val.title}`;
-            document.getElementById('inputAboutTitle').value = val.title;
+        const ab = snapshot.val();
+        if (ab) {
+          if (ab.faculty) {
+            document.getElementById('displayAboutFaculty').innerText = ab.faculty;
+            document.getElementById('inputAboutFaculty').value = ab.faculty;
           }
-          if (val.description) {
-            document.getElementById('displayAboutDescription').innerText = val.description;
-            document.getElementById('inputAboutDescription').value = val.description;
+          if (ab.university) {
+            document.getElementById('displayAboutUniversity').innerText = ab.university;
+            document.getElementById('inputAboutUniversity').value = ab.university;
           }
-          if (val.faculty) {
-            document.getElementById('displayAboutFaculty').innerText = val.faculty;
-            document.getElementById('inputAboutFaculty').value = val.faculty;
+          if (ab.title) {
+            document.getElementById('displayAboutTitle').innerHTML = `<i class="fa-solid fa-circle-info me-1"></i> ${ab.title}`;
+            document.getElementById('inputAboutTitle').value = ab.title;
           }
-          if (val.university) {
-            document.getElementById('displayAboutUniversity').innerText = val.university;
-            document.getElementById('inputAboutUniversity').value = val.university;
+          if (ab.developer) {
+            document.getElementById('displayDeveloperName').innerText = ab.developer;
+            document.getElementById('inputDeveloperName').value = ab.developer;
           }
-          if (val.dean) {
-            document.getElementById('displayAboutDean').innerText = val.dean;
-            document.getElementById('inputAboutDean').value = val.dean;
+          if (ab.dean) {
+            document.getElementById('displayAboutDean').innerText = ab.dean;
+            document.getElementById('inputAboutDean').value = ab.dean;
           }
-          if (val.supervisors) {
-            document.getElementById('displayAboutSupervisors').innerText = val.supervisors;
-            document.getElementById('inputAboutSupervisors').value = val.supervisors;
+          if (ab.description) {
+            document.getElementById('displayAboutDescription').innerText = ab.description;
+            document.getElementById('inputAboutDescription').value = ab.description;
           }
-          if (val.developer) {
-            document.getElementById('displayDeveloperName').innerText = val.developer;
-            document.getElementById('inputDeveloperName').value = val.developer;
+          if (ab.supervisors) {
+            document.getElementById('displayAboutSupervisors').innerText = ab.supervisors;
+            document.getElementById('inputAboutSupervisors').value = ab.supervisors;
           }
-          if (val.facultyLogo) {
-            const img = document.getElementById('displayFacultyLogo');
-            img.src = val.facultyLogo;
-            img.classList.remove('d-none');
-            document.getElementById('inputFacultyLogo').value = val.facultyLogo;
+          if (ab.facultyLogo) {
+            document.getElementById('inputFacultyLogo').value = ab.facultyLogo;
+            const fLogo = document.getElementById('displayFacultyLogo');
+            fLogo.src = ab.facultyLogo;
+            fLogo.classList.remove('d-none');
+            const prev = document.getElementById('previewFacultyLogo');
+            prev.src = ab.facultyLogo;
+            prev.classList.remove('d-none');
           }
-          if (val.universityLogo) {
-            const img = document.getElementById('displayUniversityLogo');
-            img.src = val.universityLogo;
-            img.classList.remove('d-none');
-            document.getElementById('inputUniversityLogo').value = val.universityLogo;
+          if (ab.universityLogo) {
+            document.getElementById('inputUniversityLogo').value = ab.universityLogo;
+            const uLogo = document.getElementById('displayUniversityLogo');
+            uLogo.src = ab.universityLogo;
+            uLogo.classList.remove('d-none');
+            const prev2 = document.getElementById('previewUniversityLogo');
+            prev2.src = ab.universityLogo;
+            prev2.classList.remove('d-none');
           }
         }
       });
@@ -2333,13 +2351,13 @@
     function saveAboutSettings(e) {
       e.preventDefault();
       const aboutData = {
-        title: document.getElementById('inputAboutTitle').value,
-        description: document.getElementById('inputAboutDescription').value,
         faculty: document.getElementById('inputAboutFaculty').value,
         university: document.getElementById('inputAboutUniversity').value,
-        dean: document.getElementById('inputAboutDean').value,
-        supervisors: document.getElementById('inputAboutSupervisors').value,
+        title: document.getElementById('inputAboutTitle').value,
         developer: document.getElementById('inputDeveloperName').value,
+        dean: document.getElementById('inputAboutDean').value,
+        description: document.getElementById('inputAboutDescription').value,
+        supervisors: document.getElementById('inputAboutSupervisors').value,
         facultyLogo: document.getElementById('inputFacultyLogo').value,
         universityLogo: document.getElementById('inputUniversityLogo').value
       };
@@ -2358,7 +2376,7 @@
         unifiedLoginModalInstance.hide();
         document.getElementById('adminPanel').classList.remove('d-none');
         renderNewsFeed();
-        alert("تم تسجيل دخول الأدمن بنجاح!");
+        alert("مرحباً بك في لوحة تحكم الأدمن!");
       } else {
         alert("بيانات دخول الأدمن غير صحيحة!");
       }
@@ -2372,23 +2390,14 @@
     }
 
     function switchAdminTab(tabName) {
-      document.getElementById('adminTabPublish').classList.add('d-none');
-      document.getElementById('adminTabCategories').classList.add('d-none');
-      document.getElementById('adminTabPending').classList.add('d-none');
-      document.getElementById('adminTabComments').classList.add('d-none');
-      document.getElementById('adminTabTheme').classList.add('d-none');
-      document.getElementById('adminTabTeam').classList.add('d-none');
-      document.getElementById('adminTabAbout').classList.add('d-none');
-      document.getElementById('adminTabAccount').classList.add('d-none');
-
-      if (tabName === 'publish') document.getElementById('adminTabPublish').classList.remove('d-none');
-      else if (tabName === 'categories') document.getElementById('adminTabCategories').classList.remove('d-none');
-      else if (tabName === 'pending') document.getElementById('adminTabPending').classList.remove('d-none');
-      else if (tabName === 'comments') document.getElementById('adminTabComments').classList.add('d-none') || document.getElementById('adminTabComments').classList.remove('d-none');
-      else if (tabName === 'theme') document.getElementById('adminTabTheme').classList.remove('d-none');
-      else if (tabName === 'team') document.getElementById('adminTabTeam').classList.remove('d-none');
-      else if (tabName === 'about') document.getElementById('adminTabAbout').classList.remove('d-none');
-      else if (tabName === 'account') document.getElementById('adminTabAccount').classList.remove('d-none');
+      const tabs = ['publish', 'categories', 'pending', 'comments', 'theme', 'team', 'about', 'account'];
+      tabs.forEach(t => {
+        const el = document.getElementById('adminTab' + t.charAt(0).toUpperCase() + t.slice(1));
+        if (el) {
+          if (t === tabName) el.classList.remove('d-none');
+          else el.classList.add('d-none');
+        }
+      });
     }
 
     function shareApp() {
@@ -2396,7 +2405,7 @@
         navigator.share({ title: 'صحيفة الشروق الرقمية', url: window.location.href });
       } else {
         navigator.clipboard.writeText(window.location.href);
-        alert("تم نسخ رابط التطبيق للحافظة!");
+        alert("تم نسخ رابط الموقع بنجاح!");
       }
     }
   </script>
