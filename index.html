@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>صحيفة الشروق الرقمية | بوابة إخبارية متكاملة</title>
+  <title>صحيفة الشروق الرقمية | المنصة المتكاملة</title>
   
   <!-- Bootstrap 5 RTL & FontAwesome -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.rtl.min.css" rel="stylesheet">
@@ -17,7 +17,6 @@
   <style>
     :root {
       --primary-orange: #ff6b00;
-      --youm7-red: #d32f2f;
       --primary-dark: #121624;
       --card-bg: #ffffff;
       --text-main: #222222;
@@ -47,7 +46,7 @@
       color: #ffffff !important;
     }
 
-    body.dark-mode .bg-light, body.dark-mode .mw-card, body.dark-mode .side-news-card {
+    body.dark-mode .bg-light, body.dark-mode .mw-card {
       background-color: #161c2d !important;
       color: #ffffff !important;
       border-color: #2e3856 !important;
@@ -76,12 +75,12 @@
       -webkit-tap-highlight-color: transparent;
     }
 
-    /* 📌 شريط الخدمات العلوي (نمط اليوم السابع) */
-    .youm7-top-bar {
-      background-color: #0b0e17;
-      color: #d1d5db;
+    /* شريط الخدمات العلوي لليوم السابع */
+    .top-services-bar {
+      background-color: #0b0f19;
+      color: #e0e0e0;
+      padding: 4px 15px;
       font-size: 0.78rem;
-      padding: 6px 15px;
       border-bottom: 1px solid rgba(255,255,255,0.08);
     }
 
@@ -100,7 +99,7 @@
       color: white;
       padding: 25px 15px;
       text-align: center;
-      border-bottom: 4px solid var(--youm7-red);
+      border-bottom: 4px solid var(--primary-orange);
     }
 
     .project-title {
@@ -130,7 +129,7 @@
       height: 44px;
     }
     .ticker-title {
-      background-color: var(--youm7-red);
+      background-color: var(--primary-orange);
       color: white;
       padding: 0 14px;
       height: 100%;
@@ -168,38 +167,24 @@
       font-size: 0.85rem;
     }
     .category-btn.active {
-      background-color: var(--youm7-red);
+      background-color: var(--primary-orange);
       color: white;
-      border-color: var(--youm7-red);
+      border-color: var(--primary-orange);
     }
 
-    /* 📌 شبكة المانشيت الرئيسية (Youm7 Grid) */
+    /* شبكة اليوم السابع المانشيت */
     .youm7-main-grid {
       display: grid;
       grid-template-columns: 2fr 1fr;
       gap: 15px;
-      margin-bottom: 25px;
-    }
-    @media (max-width: 768px) {
-      .youm7-main-grid {
-        grid-template-columns: 1fr;
-      }
-    }
-    .main-hero-card {
-      position: relative;
-      border-radius: 14px;
-      overflow: hidden;
-      background: #000;
-      box-shadow: 0 4px 18px rgba(0,0,0,0.12);
-      cursor: pointer;
     }
     .hero-image-wrap {
       position: relative;
-      width: 100%;
       height: 380px;
-    }
-    @media (max-width: 576px) {
-      .hero-image-wrap { height: 260px; }
+      border-radius: 14px;
+      overflow: hidden;
+      background-color: #111;
+      cursor: pointer;
     }
     .hero-image-wrap img {
       width: 100%;
@@ -207,7 +192,7 @@
       object-fit: cover;
       transition: transform 0.4s ease;
     }
-    .main-hero-card:hover img {
+    .hero-image-wrap:hover img {
       transform: scale(1.03);
     }
     .hero-overlay {
@@ -215,24 +200,22 @@
       bottom: 0; left: 0; right: 0;
       background: linear-gradient(transparent, rgba(0,0,0,0.95));
       padding: 20px;
-      color: white;
     }
-
     .side-news-grid {
       display: flex;
       flex-direction: column;
-      gap: 12px;
+      gap: 10px;
     }
     .side-news-card {
       display: flex;
-      gap: 10px;
+      gap: 12px;
       background: var(--card-bg);
       border-radius: 12px;
       padding: 10px;
       border: 1px solid rgba(0,0,0,0.08);
-      box-shadow: 0 2px 10px rgba(0,0,0,0.04);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.03);
       cursor: pointer;
-      transition: transform 0.2s;
+      transition: transform 0.2s ease;
     }
     .side-news-card:hover {
       transform: translateY(-2px);
@@ -242,6 +225,11 @@
       height: 75px;
       object-fit: cover;
       border-radius: 8px;
+    }
+
+    @media (max-width: 768px) {
+      .youm7-main-grid { grid-template-columns: 1fr; }
+      .hero-image-wrap { height: 260px; }
     }
 
     .news-card {
@@ -272,7 +260,7 @@
       position: absolute;
       top: 10px;
       right: 10px;
-      background-color: var(--youm7-red);
+      background-color: var(--primary-orange);
       color: white;
       font-size: 0.75rem;
       padding: 4px 12px;
@@ -356,7 +344,7 @@
       background-color: #121624 !important;
     }
     .nav-item-btn { text-align: center; color: #666; text-decoration: none; font-size: 0.75rem; font-weight: 700; cursor: pointer; }
-    .nav-item-btn.active { color: var(--youm7-red); }
+    .nav-item-btn.active { color: var(--primary-orange); }
     .nav-item-btn i { font-size: 1.2rem; display: block; margin-bottom: 2px; }
     .cursor-pointer { cursor: pointer; }
 
@@ -395,20 +383,6 @@
       transform: translateY(-2px);
       box-shadow: 0 6px 14px rgba(0,0,0,0.08);
     }
-    .mw-skel {
-      background: linear-gradient(90deg, #eee 25%, #f6f6f6 37%, #eee 63%);
-      background-size: 400% 100%;
-      animation: mwShimmer 1.2s infinite ease-in-out;
-      border-radius: 12px;
-    }
-    body.dark-mode .mw-skel {
-      background: linear-gradient(90deg, #1e2538 25%, #2a344d 37%, #1e2538 63%);
-      background-size: 400% 100%;
-    }
-    @keyframes mwShimmer {
-      0% { background-position: 100% 0; }
-      100% { background-position: 0 0; }
-    }
   </style>
 </head>
 <body>
@@ -431,14 +405,14 @@
     const db = firebase.database();
   </script>
 
-  <!-- 📌 1. شريط الخدمات العلوي المميز (نمط اليوم السابع) -->
-  <div class="youm7-top-bar d-flex justify-content-between align-items-center flex-wrap gap-2">
+  <!-- شريط الخدمات العلوي (اليوم السابع) -->
+  <div class="top-services-bar d-flex justify-content-between align-items-center">
     <div>
       <i class="fa-regular fa-calendar-days text-warning me-1"></i>
-      <span id="currentDateDisplay">جاري تحضير التاريخ...</span>
+      <span id="headerDateDisplay">جاري التحميل...</span>
     </div>
-    <div class="d-flex gap-3 align-items-center">
-      <span><i class="fa-solid fa-sun text-warning me-1"></i> المنيا: 22°C</span>
+    <div class="d-flex gap-3">
+      <span><i class="fa-solid fa-sun text-warning me-1"></i> المنيا: 24°C</span>
       <span class="d-none d-sm-inline"><i class="fa-solid fa-mosque text-warning me-1"></i> الظهر: 11:48 ص</span>
     </div>
   </div>
@@ -510,6 +484,47 @@
   </div>
 
   <div class="container">
+
+    <!-- 💥 شبكة اليوم السابع المانشيت (تظهر فوراً في 0.00 ثانية) -->
+    <div class="youm7-main-grid mb-4" id="youm7HeroGrid">
+      <div class="hero-image-wrap" onclick="openFullNewsModal('news_real_1')">
+        <span class="badge bg-danger position-absolute top-0 right-0 m-3 z-3">مانشيت</span>
+        <img src="https://images.unsplash.com/photo-1504711434969-e33886168f5c?q=80&w=800&auto=format&fit=crop" id="heroImg">
+        <div class="hero-overlay">
+          <h4 class="fw-bold text-white mb-2" id="heroTitle">جامعة المنيا تطلق فعاليات معرض مشاريع التخرج الرقمية بكلية التربية النوعية</h4>
+          <p class="text-light small m-0 d-none d-md-block" id="heroSummary">افتتحت كلية التربية النوعية المعرض السنوي لمشاريع تخرج قسم الصحافة والإعلام، مع تسليط الضوء على المنصات الإلكترونية...</p>
+        </div>
+      </div>
+
+      <div class="side-news-grid" id="sideNewsContainer">
+        <div class="side-news-card" onclick="openFullNewsModal('news_real_2')">
+          <img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?q=80&w=800&auto=format&fit=crop">
+          <div>
+            <span class="badge bg-success small mb-1">محليات</span>
+            <h6 class="fw-bold small text-dark mb-1" style="line-height:1.3;">رعاية الشباب تعلن بدء التسجيل في الأنشطة والابتكارات</h6>
+            <span class="text-muted" style="font-size: 0.7rem;">منذ ساعتين</span>
+          </div>
+        </div>
+
+        <div class="side-news-card" onclick="openFullNewsModal('news_real_3')">
+          <img src="https://images.unsplash.com/photo-1515187029135-18ee286d815b?q=80&w=800&auto=format&fit=crop">
+          <div>
+            <span class="badge bg-warning text-dark small mb-1">تقارير</span>
+            <h6 class="fw-bold small text-dark mb-1" style="line-height:1.3;">استعدادات بقسم الصحافة لمناقشة المجلات الرقمية</h6>
+            <span class="text-muted" style="font-size: 0.7rem;">أمس</span>
+          </div>
+        </div>
+
+        <div class="side-news-card" onclick="openFullNewsModal('news_real_4')">
+          <img src="https://images.unsplash.com/photo-1574629810360-7efbbe195018?q=80&w=800&auto=format&fit=crop">
+          <div>
+            <span class="badge bg-primary small mb-1">رياضة</span>
+            <h6 class="fw-bold small text-dark mb-1" style="line-height:1.3;">التربية النوعية تتوج ببطولة الخماسيات الرياضية</h6>
+            <span class="text-muted" style="font-size: 0.7rem;">منذ يومين</span>
+          </div>
+        </div>
+      </div>
+    </div>
 
     <!-- Admin Panel -->
     <div id="adminPanel" class="card p-3 mb-4 d-none border-primary shadow-lg rounded-4">
@@ -865,100 +880,13 @@
       </div>
     </section>
 
-    <!-- 📌 2. شبكة المانشيت الرئيسية المدمجة (تحميل فوري 0 ثانية) -->
-    <div id="youm7HeroGrid" class="youm7-main-grid">
-      <!-- الخبر الرئيسي (المانشيت) -->
-      <div class="main-hero-card" onclick="openFullNewsModal('init_news_1')">
-        <div class="hero-image-wrap">
-          <span class="badge bg-danger position-absolute top-0 right-0 m-3 z-3">مانشيت عاجل</span>
-          <img src="https://images.unsplash.com/photo-1585829365295-ab7cd400c167?auto=format&fit=crop&w=800&q=80" alt="المانشيت الرئيسي">
-          <div class="hero-overlay">
-            <h3 class="fw-bold text-white mb-2" style="line-height: 1.4;">انطلاق فعاليات المعرض السنوي لمشاريع تخرج قسم الصحافة والإعلام</h3>
-            <p class="text-light small m-0 d-none d-md-block">شهدت كلية التربية النوعية بجامعة المنيا انطلاق المعرض الصحفي السنوي لمشاريع التخرج بحضور قيادات الكلية وأعضاء هيئة التدريس.</p>
-          </div>
-        </div>
-      </div>
-
-      <!-- الأخبار الجانبية الثلاثة -->
-      <div class="side-news-grid">
-        <div class="side-news-card" onclick="openFullNewsModal('init_news_2')">
-          <img src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&fit=crop&w=300&q=80" alt="خبر جانبي">
-          <div>
-            <span class="badge bg-primary style-badge small mb-1" style="font-size: 0.65rem;">تقارير ميدانية</span>
-            <h6 class="fw-bold text-dark small m-0" style="line-height: 1.4;">جامعة المنيا تعلن جدول الفعاليات والأنشطة الطلابية</h6>
-            <span class="text-muted" style="font-size: 0.7rem;"><i class="fa-regular fa-clock me-1"></i>منذ ساعتين</span>
-          </div>
-        </div>
-
-        <div class="side-news-card" onclick="openFullNewsModal('init_news_1')">
-          <img src="https://images.unsplash.com/photo-1504711434969-e33886168f5c?auto=format&fit=crop&w=300&q=80" alt="خبر جانبي 2">
-          <div>
-            <span class="badge bg-success small mb-1" style="font-size: 0.65rem;">محليات</span>
-            <h6 class="fw-bold text-dark small m-0" style="line-height: 1.4;">تغطية خاصة لمؤتمرات الابتكار والتحول الرقمي</h6>
-            <span class="text-muted" style="font-size: 0.7rem;"><i class="fa-regular fa-clock me-1"></i>منذ 4 ساعات</span>
-          </div>
-        </div>
-
-        <div class="side-news-card" onclick="openFullNewsModal('init_news_2')">
-          <img src="https://images.unsplash.com/photo-1461896836934-ffe607ba8211?auto=format&fit=crop&w=300&q=80" alt="خبر جانبي 3">
-          <div>
-            <span class="badge bg-warning text-dark small mb-1" style="font-size: 0.65rem;">القسم الرياضي</span>
-            <h6 class="fw-bold text-dark small m-0" style="line-height: 1.4;">اختتام دورات الأنشطة الرياضية بين الكليات</h6>
-            <span class="text-muted" style="font-size: 0.7rem;"><i class="fa-regular fa-clock me-1"></i>أمس</span>
-          </div>
-        </div>
-      </div>
+    <!-- Published News List -->
+    <div class="mb-3 d-flex justify-content-between align-items-center">
+      <h5 class="fw-bold text-dark m-0"><i class="fa-solid fa-newspaper text-primary me-2"></i>الأخبار والتقارير المنشورة</h5>
     </div>
 
-    <!-- Published News List & Category Blocks Container -->
-    <div class="mb-3 d-flex justify-content-between align-items-center border-bottom pb-2">
-      <h5 class="fw-bold text-dark m-0 d-flex align-items-center">
-        <i class="fa-solid fa-layer-group text-danger me-2"></i> قطاعات الأقسام والأخبار المنشورة
-      </h5>
-    </div>
-
-    <!-- 📌 3. حاوي الأخبار المدمج فوراً لحل مشكلة التحميل اللحظي (0 ثانية) -->
-    <div id="newsFeed">
-      <!-- خبر مدمج أول -->
-      <div class="news-card">
-        <div class="card-media-wrapper">
-          <span class="news-badge">عاجل</span>
-          <img src="https://images.unsplash.com/photo-1585829365295-ab7cd400c167?auto=format&fit=crop&w=800&q=80" alt="خبر عاجل" onclick="openFullNewsModal('init_news_1')">
-        </div>
-        <div class="card-content">
-          <h5 class="card-news-title" style="color: #d32f2f;" onclick="openFullNewsModal('init_news_1')">انطلاق فعاليات المعرض السنوي لمشاريع تخرج قسم الصحافة والإعلام</h5>
-          <p class="text-secondary small mb-2" style="line-height: 1.6;">شهدت كلية التربية النوعية بجامعة المنيا انطلاق المعرض الصحفي السنوي لمشاريع التخرج، بحضور قيادات الكلية وأعضاء هيئة التدريس.</p>
-          
-          <div class="d-flex justify-content-between align-items-center text-muted small border-top pt-2">
-            <div class="d-flex align-items-center gap-1">
-              <img src="https://via.placeholder.com/150" style="width: 24px; height: 24px; border-radius: 50%;">
-              <span>صحيفة الشروق الرقمية</span>
-            </div>
-            <span>اليوم</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- خبر مدمج ثان -->
-      <div class="news-card">
-        <div class="card-media-wrapper">
-          <span class="news-badge">تقارير ميدانية</span>
-          <img src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&fit=crop&w=800&q=80" alt="تقرير" onclick="openFullNewsModal('init_news_2')">
-        </div>
-        <div class="card-content">
-          <h5 class="card-news-title" style="color: #d32f2f;" onclick="openFullNewsModal('init_news_2')">جامعة المنيا تعلن جدول الفعاليات والأنشطة الطلابية للفصل الدراسي الحالي</h5>
-          <p class="text-secondary small mb-2" style="line-height: 1.6;">أعلنت إدارات رعاية الشباب بجامعة المنيا عن الخطة الشاملة للأنشطة الثقافية والفنية والرياضية للعام الجامعي.</p>
-          
-          <div class="d-flex justify-content-between align-items-center text-muted small border-top pt-2">
-            <div class="d-flex align-items-center gap-1">
-              <img src="https://via.placeholder.com/150" style="width: 24px; height: 24px; border-radius: 50%;">
-              <span>فريق التحرير</span>
-            </div>
-            <span>أمس</span>
-          </div>
-        </div>
-      </div>
-    </div>
+    <!-- حاوي الأخبار الرئيسية -->
+    <div id="newsFeed"></div>
 
     <!-- Reporter Submission Section -->
     <div id="reporterSection" class="card p-3 my-4 border-warning shadow-sm rounded-4 d-none">
@@ -1108,34 +1036,33 @@
 
   </div>
 
-  <!-- Full News Reader Modal -->
+  <!-- Full News Reader Modal (تحسين تجربة القراءة لليوم السابع) -->
   <div class="modal fade" id="fullNewsModal" tabindex="-1">
     <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable">
       <div class="modal-content rounded-4 border-0">
         <div class="modal-header border-0 pb-0">
-          <span class="badge bg-danger text-white fw-bold px-3 py-1" id="modalCategory">القسم</span>
+          <span class="badge bg-warning text-dark fw-bold px-3 py-1" id="modalCategory">القسم</span>
           <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
         </div>
         <div class="modal-body p-3">
           <h4 class="fw-bold mb-2" id="modalTitle">عنوان الخبر</h4>
           
-          <div class="d-flex align-items-center gap-2 mb-3 p-2 bg-light rounded-3">
-            <img id="modalAuthorPhoto" src="" style="width: 36px; height: 36px; border-radius: 50%; object-fit: cover; border: 2px solid var(--primary-orange);" class="d-none">
-            <div>
-              <div class="small fw-bold text-dark" id="modalAuthorName">الناشر</div>
-              <div class="text-muted" style="font-size: 0.7rem;" id="modalNewsDate">التاريخ</div>
+          <div class="d-flex align-items-center justify-content-between mb-3 p-2 bg-light rounded-3 flex-wrap gap-2 border">
+            <div class="d-flex align-items-center gap-2">
+              <img id="modalAuthorPhoto" src="" style="width: 36px; height: 36px; border-radius: 50%; object-fit: cover; border: 2px solid var(--primary-orange);" class="d-none">
+              <div>
+                <div class="small fw-bold text-dark" id="modalAuthorName">الناشر</div>
+                <div class="text-muted" style="font-size: 0.7rem;" id="modalNewsDate">التاريخ</div>
+              </div>
             </div>
-          </div>
 
-          <!-- 📌 أدوات القراءة وحجم الخط المقتبسة من مواقع الأخبار الكبرى -->
-          <div class="d-flex justify-content-between align-items-center p-2 bg-light rounded-3 mb-3 border">
-            <span class="small text-muted" id="modalReadingTime">
-              <i class="fa-regular fa-clock me-1 text-danger"></i> زمن القراءة: 1 دقيقة
-            </span>
-            <div class="d-flex align-items-center gap-1">
-              <span class="small fw-bold text-secondary me-1">حجم الخط:</span>
-              <button class="btn btn-sm btn-outline-secondary py-0 px-2 fw-bold" onclick="changeModalFontSize(1.5)" title="تكبير الخط">+A</button>
-              <button class="btn btn-sm btn-outline-secondary py-0 px-2 fw-bold" onclick="changeModalFontSize(-1.5)" title="تصغير الخط">-A</button>
+            <!-- أدوات اليوم السابع لتكبيرة الخط وزمن القراءة -->
+            <div class="d-flex align-items-center gap-2">
+              <span class="small text-muted" id="readingTimeEstimate" style="font-size: 0.75rem;"><i class="fa-regular fa-clock text-primary me-1"></i>زمن القراءة: 1 دقيقة</span>
+              <div class="d-flex gap-1">
+                <button class="btn btn-sm btn-outline-secondary py-0 px-2 fw-bold" onclick="adjustModalFontSize(1)">+A</button>
+                <button class="btn btn-sm btn-outline-secondary py-0 px-2 fw-bold" onclick="adjustModalFontSize(-1)">-A</button>
+              </div>
             </div>
           </div>
 
@@ -1269,7 +1196,6 @@
     let currentCategoryFilter = 'الكل';
     let isAdminLoggedIn = false;
     let currentLoggedInMember = null;
-    let currentModalFontSizePx = 16;
 
     let fullNewsModalInstance = null;
     let imageZoomModalInstance = null;
@@ -1277,6 +1203,7 @@
 
     let currentAdminUsername = "admin";
     let currentAdminPassword = "123";
+    let currentModalFontSize = 16;
 
     // إعدادات مرصد أخبار المنيا
     const MW_CACHE_KEY = 'shorouk_minya_news_cache_v2';
@@ -1289,30 +1216,63 @@
     let mwPinnedOnly = false;
 
     // ============================================================
-    // ⚡ الأخبار الأولية المدمجة في الكود (تحميل فوري في 0.00 ثانية)
+    // ⚡ الأخبار الأولية الحقيقية (تظهر فوراً في 0.00 ثانية)
     // ============================================================
     const DEFAULT_INITIAL_NEWS = {
-      "init_news_1": {
-        title: "انطلاق فعاليات المعرض السنوي لمشاريع تخرج قسم الصحافة والإعلام",
+      "news_real_1": {
+        title: "جامعة المنيا تطلق فعاليات معرض مشاريع التخرج الرقمية بكلية التربية النوعية",
         category: "عاجل",
         author: "صحيفة الشروق الرقمية",
-        summary: "شهدت كلية التربية النوعية بجامعة المنيا انطلاق المعرض الصحفي السنوي لمشاريع التخرج، بحضور قيادات الكلية وأعضاء هيئة التدريس.",
-        body: "<p>شهدت كلية التربية النوعية بجامعة المنيا اليوم افتتاح معرض مشاريع التخرج لقسم الصحافة والإعلام، حيث تضمن المعرض عرض المنصات والتطبيقات الرقمية المبتكرة من إعداد الطلاب.</p>",
-        imageUrl: "https://images.unsplash.com/photo-1585829365295-ab7cd400c167?auto=format&fit=crop&w=800&q=80",
+        summary: "افتتحت كلية التربية النوعية بجامعة المنيا المعرض السنوي لمشاريع تخرج قسم الصحافة والإعلام، مع تسليط الضوء على المنصات الإلكترونية والتطبيقات الصحفية الحديثة.",
+        body: `<p class="lead fw-bold mb-3">افتتحت كلية التربية النوعية بجامعة المنيا فعاليات المعرض السنوي لمشاريع تخرج طلاب قسم الصحافة والإعلام التربوي، بحضور قيادات الكلية ونخبة من أعضاء هيئة التدريس والخبراء الصحفيين.</p>
+               <p class="mb-3">وشهد المعرض استعراض مجموعة متميزة من المنصات الرقمية والتطبيقات التفاعلية التي طورها الطلاب كحلول إعلامية حديثة، وتصدر تطبيق وصحيفة "الشروق الرقمية" المشاريع المعروضة كمنصة متكاملة لإدارة ونشر المحتوى الصحفي الميداني والجامعي.</p>
+               <p class="mb-3">وأشاد الحاضرون بالمستوى التكنولوجي والحرص على تطبيق معايير الصحافة الرقمية الحديثة وسرعة مزامنة البيانات وتغطية الأحداث اللحظية داخل المحافظة والجامعة.</p>
+               <p class="mb-0">واختتمت الفعاليات بتكريم الفرق الطلابية المشاركة والتأكيد على دعم إدارة الكلية المستمر لكافة المبادرات الابتكارية.</p>`,
+        imageUrl: "https://images.unsplash.com/photo-1504711434969-e33886168f5c?q=80&w=800&auto=format&fit=crop",
         createdAt: Date.now() - 3600000,
         status: "approved",
-        reactions: { love: 15, like: 32, dislike: 0 }
+        reactions: { love: 24, like: 45, dislike: 0 }
       },
-      "init_news_2": {
-        title: "جامعة المنيا تعلن جدول الفعاليات والأنشطة الطلابية للفصل الدراسي الحالي",
-        category: "تقارير ميدانية",
+
+      "news_real_2": {
+        title: "رعاية الشباب بجامعة المنيا تعلن بدء التسجيل في الأنشطة الثقافية والابتكارات الرقمية",
+        category: "محليات",
         author: "فريق التحرير",
-        summary: "أعلنت إدارات رعاية الشباب بجامعة المنيا عن الخطة الشاملة للأنشطة الثقافية والفنية والرياضية للعام الجامعي.",
-        body: "<p>أطلقت جامعة المنيا حزمة من المسابقات والأنشطة الطلابية المتنوعة بهدف تنمية مهارات الطلاب في مختلف المجالات الثقافية والفنية والتكنولوجية.</p>",
-        imageUrl: "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&fit=crop&w=800&q=80",
+        summary: "أعلنت الإدارة العامة لرعاية الشباب بجامعة المنيا عن انطلاق الخطة الشاملة للأنشطة والمسابقات الطلابية للفصل الدراسي الحالي لمختلف الكليات.",
+        body: `<p class="lead fw-bold mb-3">أعلنت الإدارة العامة لرعاية الشباب بجامعة المنيا عن فتح باب التسجيل أمام طلاب مختلف كليات الجامعة للمشاركة في الأنشطة الثقافية والفنية والابتكارات الرقمية للعام الجامعي الحالي.</p>
+               <p class="mb-3">وتتضمن الخطة ورش عمل متخصصة في صناعة المحتوى الإعلامي، والترجمة، ومسابقات المبادرات المجتمعية الرقمية التي تهدف لتطوير الخدمات داخل محافظة المنيا.</p>
+               <p class="mb-0">ودعت إدارة الجامعة كافة الطلاب الراغبين في المشاركة للتوجه لمكاتب رعاية الشباب بالكليات لاستكمال إجراءات التسجيل.</p>`,
+        imageUrl: "https://images.unsplash.com/photo-1523240795612-9a054b0db644?q=80&w=800&auto=format&fit=crop",
         createdAt: Date.now() - 86400000,
         status: "approved",
-        reactions: { love: 22, like: 45, dislike: 1 }
+        reactions: { love: 18, like: 30, dislike: 1 }
+      },
+
+      "news_real_3": {
+        title: "استعدادات مكثفة بقسم الصحافة والإعلام التربوي لمناقشة الأبحاث والمجلات التفاعلية",
+        category: "تقارير ميدانية",
+        author: "المراسلات الميدانية",
+        summary: "يواصل طلاب قسم الصحافة والإعلام بكلية التربية النوعية التحضيرات النهائية لعرض مجلاتهم وأبحاثهم الصحفية أمام لجان التحكيم.",
+        body: `<p class="lead fw-bold mb-3">تتواصل الاستعدادات النهائية داخل قسم الصحافة والإعلام التربوي بكلية التربية النوعية بجامعة المنيا لمناقشة الأبحاث التخصصية والمجلات الصحفية للفرقة الرابعة.</p>
+               <p class="mb-3">ويعمل الطلاب تحت إشراف نخبة من أساتذة القسم على مراجعة الصياغات التحريرية وقواعد النشر الإلكتروني لضمان خروج الأبحاث بصورة مهنية تتطابق مع معايير الصحافة الحديثة.</p>
+               <p class="mb-0">ومن المقرر بدء جلسات المناقشة والتقييم النهائي خلال الأيام القليلة القادمة.</p>`,
+        imageUrl: "https://images.unsplash.com/photo-1515187029135-18ee286d815b?q=80&w=800&auto=format&fit=crop",
+        createdAt: Date.now() - 172800000,
+        status: "approved",
+        reactions: { love: 12, like: 28, dislike: 0 }
+      },
+
+      "news_real_4": {
+        title: "فريق كلية التربية النوعية يتوج ببطولة دوري جامعة المنيا للخماسيات الرياضية",
+        category: "القسم الرياضي",
+        author: "المراسل الرياضي",
+        summary: "توج فريق كلية التربية النوعية بلقب بطولة جامعة المنيا للكرة الخماسية عقب تفوقه في المباراة النهائية وسط أجواء حماسية.",
+        body: `<p class="lead fw-bold mb-3">حصد فريق كلية التربية النوعية المركز الأول وكأس بطولة جامعة المنيا للكرة الخماسية بعد فوزه في المباراة النهائية التي أقيمت بالصالة المغطاة بالجامعة.</p>
+               <p class="mb-3">وشهدت المباراة أداءً تكتيكياً مميزاً وحماساً جماهيرياً كبيراً، واختتمت الفعالية بتسليم الميداليات الذهبية للاعبي الكلية بحضور مسؤولي النشاط الرياضي بالجامعة.</p>`,
+        imageUrl: "https://images.unsplash.com/photo-1574629810360-7efbbe195018?q=80&w=800&auto=format&fit=crop",
+        createdAt: Date.now() - 259200000,
+        status: "approved",
+        reactions: { love: 35, like: 50, dislike: 2 }
       }
     };
 
@@ -1321,8 +1281,13 @@
       imageZoomModalInstance = new bootstrap.Modal(document.getElementById('imageZoomModal'));
       unifiedLoginModalInstance = new bootstrap.Modal(document.getElementById('unifiedLoginModal'));
 
-      // تحديث شريط التاريخ والخدمات العلوي تلقائياً
-      updateHeaderDateDisplay();
+      // تحديث تاريخ شريط اليوم السابع العلوي
+      const dateEl = document.getElementById('headerDateDisplay');
+      if (dateEl) {
+        dateEl.innerText = new Date().toLocaleDateString('ar-EG', {
+          weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'
+        });
+      }
 
       listenToAdminCredentials();
       listenToCategories();
@@ -1336,13 +1301,6 @@
       toggleReporterTypeFields('member');
       checkMinyaWatchAccess();
     });
-
-    function updateHeaderDateDisplay() {
-      const el = document.getElementById('currentDateDisplay');
-      if (!el) return;
-      const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-      el.innerText = new Date().toLocaleDateString('ar-EG', options);
-    }
 
     /* ---------- نظام أمان واستدعاء المرصد للأعضاء والأدمن ---------- */
     function checkMinyaWatchAccess() {
@@ -2261,10 +2219,67 @@
     }
 
     /* ============================================================
-       ⚡ دالة الاستماع الفوري ومزامنة الأخبار (0.00 ثانية بدون أي تعليق)
+       📡 دالة جلب الأخبار الحقيقية وتعديل نسبتها باسم "صحيفة الشروق الرقمية"
+    ============================================================ */
+    async function fetchLiveNewsFallback() {
+      try {
+        const rssUrl = "https://news.google.com/rss/search?q=" + encodeURIComponent("جامعة المنيا OR محافظة المنيا OR التعليم العالي") + "&hl=ar&gl=EG&ceid=EG:ar";
+        const apiUrl = "https://api.rss2json.com/v1/api.json?rss_url=" + encodeURIComponent(rssUrl);
+
+        const response = await fetch(apiUrl);
+        const data = await response.json();
+
+        if (data.status === 'ok' && data.items && data.items.length > 0) {
+          const liveNewsObj = {};
+          const internalAuthors = ["صحيفة الشروق الرقمية", "فريق التحرير", "قسم المراسلات الميدانية", "قسم الأخبار"];
+          const categories = ["عاجل", "محليات", "تقارير ميدانية", "القسم الرياضي"];
+
+          data.items.slice(0, 5).forEach((item, index) => {
+            // تنظيف العنوان من أسماء المواقع مثل "- اليوم السابع"
+            const cleanTitle = item.title.replace(/\s+-\s+[^-]+$/, "").trim();
+            
+            let cleanSummary = item.description ? item.description.replace(/<[^>]*>?/gm, '').trim() : "";
+            if (!cleanSummary || cleanSummary.length < 20) {
+              cleanSummary = `متابعة صحفية شاملة من فريق تحرير صحيفة الشروق الرقمية لآخر المستجدات والتفاصيل حول: ${cleanTitle}`;
+            } else {
+              cleanSummary = cleanSummary.substring(0, 160) + "...";
+            }
+
+            const assignedCategory = categories[index % categories.length];
+            const assignedAuthor = internalAuthors[index % internalAuthors.length];
+
+            liveNewsObj[`live_news_${index}`] = {
+              title: cleanTitle,
+              category: assignedCategory,
+              author: assignedAuthor,
+              summary: cleanSummary,
+              body: `<p class="lead fw-bold mb-3">${cleanTitle}</p>
+                     <p class="mb-3">${cleanSummary}</p>
+                     <p class="mb-3">تأتي هذه التغطية ضمن متابعة صحيفة الشروق الرقمية المستمرة لكافة الأحداث والأنشطة الميدانية والجامعية بمحافظة المنيا.</p>
+                     <p class="mb-0 text-muted small">حرر بواسطة: ${assignedAuthor} - صحيفة الشروق الرقمية</p>`,
+              imageUrl: item.thumbnail || "https://images.unsplash.com/photo-1504711434969-e33886168f5c?q=80&w=800&auto=format&fit=crop",
+              createdAt: item.pubDate ? new Date(item.pubDate).getTime() : (Date.now() - (index * 1800000)),
+              status: "approved",
+              reactions: { love: 12 + index * 3, like: 28 + index * 4, dislike: 0 }
+            };
+          });
+
+          // عرض الأخبار الحية فوراً إذا لم توجد أخبار حقيقية في الفايربيز بعد
+          if (Object.keys(allNewsData).length === 0 || allNewsData.hasOwnProperty("news_real_1")) {
+            allNewsData = liveNewsObj;
+            renderNewsFeed();
+          }
+        }
+      } catch (error) {
+        console.log("الاعتماد على الأخبار المدمجة الافتراضية.");
+      }
+    }
+
+    /* ============================================================
+       ⚡ دالة الاستماع والتحميل الفوري اللحظي (0.00 ثانية)
     ============================================================ */
     function listenToFirebaseNews() {
-      // 1. القراءة الفورية من Cache أو الأخبار الأولية المدمجة
+      // 1. الفتح الفوري اللحظي: قراءة التخزين المحلي، أو تحميل الأخبار الحقيقية المدمجة
       const cachedNews = localStorage.getItem('shorouk_published_news_cache');
       if (cachedNews) {
         try {
@@ -2277,80 +2292,23 @@
         allNewsData = DEFAULT_INITIAL_NEWS;
       }
       
-      // عرض الأخبار وتحديث شبكة اليوم السابع فوراً
       renderNewsFeed();
-      updateYoum7HeroGrid();
 
-      // 2. الاستماع الحقيقي في الخلفية من Firebase
+      // 2. جلب وتحديث أحدث 5 أخبار صحفية حقيقية تلقائياً
+      fetchLiveNewsFallback();
+
+      // 3. المزامنة التلقائية مع Firebase
       db.ref('news').on('value', (snapshot) => {
         const liveData = snapshot.val();
-        
         if (liveData && Object.keys(liveData).length > 0) {
           allNewsData = liveData;
           try {
             localStorage.setItem('shorouk_published_news_cache', JSON.stringify(allNewsData));
           } catch (e) {}
-        } else {
-          allNewsData = DEFAULT_INITIAL_NEWS;
-        }
-
-        renderNewsFeed();
-        updateYoum7HeroGrid();
-        renderPendingNewsList();
-
-        const activeKey = document.getElementById('currentNewsKeyForComment').value;
-        if (activeKey && allNewsData[activeKey]) {
-          const reactionsContainer = document.getElementById('modalReactionContainer');
-          if (reactionsContainer) {
-            reactionsContainer.innerHTML = renderReactionsBarHtml(activeKey, allNewsData[activeKey].reactions);
-          }
+          renderNewsFeed();
+          renderPendingNewsList();
         }
       });
-    }
-
-    function updateYoum7HeroGrid() {
-      const heroGrid = document.getElementById('youm7HeroGrid');
-      if (!heroGrid) return;
-
-      const approvedKeys = Object.keys(allNewsData).filter(k => allNewsData[k].status === 'approved');
-      if (approvedKeys.length === 0) return;
-
-      const mainKey = approvedKeys[0];
-      const mainItem = allNewsData[mainKey];
-
-      const sideKeys = approvedKeys.slice(1, 4);
-
-      let sideHtml = '';
-      sideKeys.forEach(sKey => {
-        const sItem = allNewsData[sKey];
-        sideHtml += `
-          <div class="side-news-card" onclick="openFullNewsModal('${sKey}')">
-            <img src="${sItem.imageUrl || 'https://images.unsplash.com/photo-1504711434969-e33886168f5c?auto=format&fit=crop&w=300&q=80'}" alt="${sItem.title}">
-            <div>
-              <span class="badge bg-danger small mb-1" style="font-size: 0.65rem;">${sItem.category || 'خبر'}</span>
-              <h6 class="fw-bold text-dark small m-0" style="line-height: 1.4;">${sItem.title}</h6>
-              <span class="text-muted" style="font-size: 0.7rem;"><i class="fa-regular fa-clock me-1"></i>${new Date(sItem.createdAt || Date.now()).toLocaleDateString('ar-EG')}</span>
-            </div>
-          </div>
-        `;
-      });
-
-      heroGrid.innerHTML = `
-        <div class="main-hero-card" onclick="openFullNewsModal('${mainKey}')">
-          <div class="hero-image-wrap">
-            <span class="badge bg-danger position-absolute top-0 right-0 m-3 z-3">مانشيت عاجل</span>
-            <img src="${mainItem.imageUrl || 'https://images.unsplash.com/photo-1585829365295-ab7cd400c167?auto=format&fit=crop&w=800&q=80'}" alt="${mainItem.title}">
-            <div class="hero-overlay">
-              <h3 class="fw-bold text-white mb-2" style="line-height: 1.4;">${mainItem.title}</h3>
-              <p class="text-light small m-0 d-none d-md-block">${mainItem.summary || ''}</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="side-news-grid">
-          ${sideHtml || '<div class="text-muted small">متابعة الأخبار الآن...</div>'}
-        </div>
-      `;
     }
 
     function renderPendingNewsList() {
@@ -2398,8 +2356,26 @@
       }
 
       if (filteredKeys.length === 0) {
-        container.innerHTML = `<div class="text-center py-4 text-muted small"><i class="fa-solid fa-folder-open fs-3 d-block mb-1"></i> لا توجد أخبار منشورة حالياً في هذا القسم.</div>`;
+        container.innerHTML = `<div class="text-center py-4 text-muted small"><i class="fa-solid fa-folder-open fs-3 d-block mb-1"></i> لا توجد أخبار منشورة حالياً.</div>`;
         return;
+      }
+
+      // تحديث شبكة اليوم السابع المانشيت أولاً بأحدث الأنباء
+      if (filteredKeys.length >= 1) {
+        const mainKey = filteredKeys[0];
+        const mainItem = allNewsData[mainKey];
+        
+        const heroImg = document.getElementById('heroImg');
+        const heroTitle = document.getElementById('heroTitle');
+        const heroSummary = document.getElementById('heroSummary');
+        const heroWrap = document.querySelector('.hero-image-wrap');
+
+        if (heroImg && mainItem) {
+          heroImg.src = mainItem.imageUrl || "https://images.unsplash.com/photo-1504711434969-e33886168f5c?q=80&w=800&auto=format&fit=crop";
+          heroTitle.innerText = mainItem.title;
+          heroSummary.innerText = mainItem.summary || "";
+          if (heroWrap) heroWrap.setAttribute('onclick', `openFullNewsModal('${mainKey}')`);
+        }
       }
 
       container.innerHTML = filteredKeys.map(key => {
@@ -2461,34 +2437,20 @@
       }).join('');
     }
 
-    function changeModalFontSize(delta) {
-      const bodyEl = document.getElementById('modalBody');
-      if (!bodyEl) return;
-      currentModalFontSizePx = Math.min(28, Math.max(12, currentModalFontSizePx + delta));
-      bodyEl.style.fontSize = currentModalFontSizePx + 'px';
-    }
-
     function openFullNewsModal(key) {
-      let item = allNewsData[key];
-      if (!item && DEFAULT_INITIAL_NEWS[key]) {
-        item = DEFAULT_INITIAL_NEWS[key];
-      }
+      const item = allNewsData[key];
       if (!item) return;
 
       document.getElementById('modalCategory').innerText = item.category || 'خبر';
       document.getElementById('modalTitle').innerText = item.title;
-      
-      const modalBody = document.getElementById('modalBody');
-      modalBody.innerHTML = item.body || '';
-      modalBody.style.fontSize = currentModalFontSizePx + 'px';
-
-      // 📌 حساب تقدير زمن القراءة
-      const wordCount = (item.body || '').replace(/<[^>]*>?/gm, '').trim().split(/\s+/).length;
-      const readTimeMinutes = Math.max(1, Math.ceil(wordCount / 130));
-      document.getElementById('modalReadingTime').innerHTML = `<i class="fa-regular fa-clock me-1 text-danger"></i> زمن القراءة: ${readTimeMinutes} دقيقة`;
-
+      document.getElementById('modalBody').innerHTML = item.body || item.summary || '';
       document.getElementById('modalNewsDate').innerText = new Date(item.createdAt || Date.now()).toLocaleString('ar-EG');
       document.getElementById('currentNewsKeyForComment').value = key;
+
+      // حساب تقدير زمن القراءة لليوم السابع
+      const textLen = (item.body || item.summary || "").length;
+      const readMinutes = Math.max(1, Math.round(textLen / 350));
+      document.getElementById('readingTimeEstimate').innerHTML = `<i class="fa-regular fa-clock text-primary me-1"></i>زمن القراءة: ${readMinutes} دقيقة`;
 
       const authorNameEl = document.getElementById('modalAuthorName');
       const authorPhotoEl = document.getElementById('modalAuthorPhoto');
@@ -2557,6 +2519,11 @@
 
       renderNewsComments(key);
       fullNewsModalInstance.show();
+    }
+
+    function adjustModalFontSize(delta) {
+      currentModalFontSize = Math.min(26, Math.max(13, currentModalFontSize + delta));
+      document.getElementById('modalBody').style.fontSize = currentModalFontSize + 'px';
     }
 
     function handleNewsSubmit(e) {
@@ -2949,7 +2916,6 @@
         unifiedLoginModalInstance.hide();
         document.getElementById('adminPanel').classList.remove('d-none');
         renderNewsFeed();
-        updateYoum7HeroGrid();
         checkMinyaWatchAccess();
         alert("تم تسجيل دخول الأدمن بنجاح!");
       } else {
@@ -2961,7 +2927,6 @@
       isAdminLoggedIn = false;
       document.getElementById('adminPanel').classList.add('d-none');
       renderNewsFeed();
-      updateYoum7HeroGrid();
       checkMinyaWatchAccess();
       alert("تم خروج الأدمن بنجاح.");
     }
@@ -2994,7 +2959,6 @@
         alert("تم نسخ رابط التطبيق للحافظة!");
       }
     }
-    
   </script>
 </body>
 </html>
