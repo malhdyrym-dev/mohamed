@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>صحيفة الشروق الرقمية | المنصة المتكاملة</title>
+  <title>صحيفة الشروق الرقمية | بوابة إخبارية متكاملة</title>
   
   <!-- Bootstrap 5 RTL & FontAwesome -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.rtl.min.css" rel="stylesheet">
@@ -17,6 +17,7 @@
   <style>
     :root {
       --primary-orange: #ff6b00;
+      --youm7-red: #d32f2f;
       --primary-dark: #121624;
       --card-bg: #ffffff;
       --text-main: #222222;
@@ -38,17 +39,18 @@
       --bg-light: #0d111d;
     }
 
-    /* تعديل شامل لقلب أي نص أسود (#000 أو #222 أو .text-dark) إلى أبيض تلقائياً في المظهر الداكن دون حذف أي شيء */
     body.dark-mode .text-dark,
     body.dark-mode h1, body.dark-mode h2, body.dark-mode h3, body.dark-mode h4, body.dark-mode h5, body.dark-mode h6,
     body.dark-mode span, body.dark-mode p, body.dark-mode label, body.dark-mode div,
-    body.dark-mode .card-news-title, body.dark-mode .modal-header-title {
+    body.dark-mode .card-news-title, body.dark-mode .modal-header-title,
+    body.dark-mode .mw-title-link {
       color: #ffffff !important;
     }
 
-    body.dark-mode .bg-light {
+    body.dark-mode .bg-light, body.dark-mode .mw-card, body.dark-mode .side-news-card {
       background-color: #161c2d !important;
       color: #ffffff !important;
+      border-color: #2e3856 !important;
     }
 
     body.dark-mode .form-control, body.dark-mode .form-select {
@@ -74,6 +76,15 @@
       -webkit-tap-highlight-color: transparent;
     }
 
+    /* 📌 شريط الخدمات العلوي (نمط اليوم السابع) */
+    .youm7-top-bar {
+      background-color: #0b0e17;
+      color: #d1d5db;
+      font-size: 0.78rem;
+      padding: 6px 15px;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+
     .top-navbar {
       background-color: var(--primary-orange);
       color: white;
@@ -89,7 +100,7 @@
       color: white;
       padding: 25px 15px;
       text-align: center;
-      border-bottom: 4px solid var(--primary-orange);
+      border-bottom: 4px solid var(--youm7-red);
     }
 
     .project-title {
@@ -119,7 +130,7 @@
       height: 44px;
     }
     .ticker-title {
-      background-color: var(--primary-orange);
+      background-color: var(--youm7-red);
       color: white;
       padding: 0 14px;
       height: 100%;
@@ -157,9 +168,80 @@
       font-size: 0.85rem;
     }
     .category-btn.active {
-      background-color: var(--primary-orange);
+      background-color: var(--youm7-red);
       color: white;
-      border-color: var(--primary-orange);
+      border-color: var(--youm7-red);
+    }
+
+    /* 📌 شبكة المانشيت الرئيسية (Youm7 Grid) */
+    .youm7-main-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 15px;
+      margin-bottom: 25px;
+    }
+    @media (max-width: 768px) {
+      .youm7-main-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+    .main-hero-card {
+      position: relative;
+      border-radius: 14px;
+      overflow: hidden;
+      background: #000;
+      box-shadow: 0 4px 18px rgba(0,0,0,0.12);
+      cursor: pointer;
+    }
+    .hero-image-wrap {
+      position: relative;
+      width: 100%;
+      height: 380px;
+    }
+    @media (max-width: 576px) {
+      .hero-image-wrap { height: 260px; }
+    }
+    .hero-image-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.4s ease;
+    }
+    .main-hero-card:hover img {
+      transform: scale(1.03);
+    }
+    .hero-overlay {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      background: linear-gradient(transparent, rgba(0,0,0,0.95));
+      padding: 20px;
+      color: white;
+    }
+
+    .side-news-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .side-news-card {
+      display: flex;
+      gap: 10px;
+      background: var(--card-bg);
+      border-radius: 12px;
+      padding: 10px;
+      border: 1px solid rgba(0,0,0,0.08);
+      box-shadow: 0 2px 10px rgba(0,0,0,0.04);
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+    .side-news-card:hover {
+      transform: translateY(-2px);
+    }
+    .side-news-card img {
+      width: 95px;
+      height: 75px;
+      object-fit: cover;
+      border-radius: 8px;
     }
 
     .news-card {
@@ -190,7 +272,7 @@
       position: absolute;
       top: 10px;
       right: 10px;
-      background-color: var(--primary-orange);
+      background-color: var(--youm7-red);
       color: white;
       font-size: 0.75rem;
       padding: 4px 12px;
@@ -274,7 +356,7 @@
       background-color: #121624 !important;
     }
     .nav-item-btn { text-align: center; color: #666; text-decoration: none; font-size: 0.75rem; font-weight: 700; cursor: pointer; }
-    .nav-item-btn.active { color: var(--primary-orange); }
+    .nav-item-btn.active { color: var(--youm7-red); }
     .nav-item-btn i { font-size: 1.2rem; display: block; margin-bottom: 2px; }
     .cursor-pointer { cursor: pointer; }
 
@@ -285,6 +367,47 @@
       box-shadow: 0 -4px 20px rgba(0,0,0,0.05);
       padding: 30px 20px;
       margin-top: 40px;
+    }
+
+    /* مرصد الأخبار */
+    #minyaWatch {
+      background: var(--card-bg);
+      border: 1px solid rgba(0,0,0,0.08);
+      border-radius: 18px;
+      padding: 18px;
+      margin-bottom: 25px;
+      box-shadow: 0 4px 18px rgba(0,0,0,0.04);
+    }
+    .mw-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 14px;
+    }
+    .mw-card {
+      background-color: var(--card-bg);
+      border: 1px solid rgba(0,0,0,0.08);
+      border-radius: 14px;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      display: flex;
+      flex-direction: column;
+    }
+    .mw-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 14px rgba(0,0,0,0.08);
+    }
+    .mw-skel {
+      background: linear-gradient(90deg, #eee 25%, #f6f6f6 37%, #eee 63%);
+      background-size: 400% 100%;
+      animation: mwShimmer 1.2s infinite ease-in-out;
+      border-radius: 12px;
+    }
+    body.dark-mode .mw-skel {
+      background: linear-gradient(90deg, #1e2538 25%, #2a344d 37%, #1e2538 63%);
+      background-size: 400% 100%;
+    }
+    @keyframes mwShimmer {
+      0% { background-position: 100% 0; }
+      100% { background-position: 0 0; }
     }
   </style>
 </head>
@@ -307,6 +430,18 @@
     }
     const db = firebase.database();
   </script>
+
+  <!-- 📌 1. شريط الخدمات العلوي المميز (نمط اليوم السابع) -->
+  <div class="youm7-top-bar d-flex justify-content-between align-items-center flex-wrap gap-2">
+    <div>
+      <i class="fa-regular fa-calendar-days text-warning me-1"></i>
+      <span id="currentDateDisplay">جاري تحضير التاريخ...</span>
+    </div>
+    <div class="d-flex gap-3 align-items-center">
+      <span><i class="fa-solid fa-sun text-warning me-1"></i> المنيا: 22°C</span>
+      <span class="d-none d-sm-inline"><i class="fa-solid fa-mosque text-warning me-1"></i> الظهر: 11:48 ص</span>
+    </div>
+  </div>
 
   <!-- Top Bar -->
   <div class="top-navbar d-flex justify-content-between align-items-center">
@@ -458,7 +593,6 @@
               <input type="hidden" id="newsAudioUrl">
             </div>
 
-            <!-- صور إضافية مع التحكم الكامل في المكان والوصف والتنسيق -->
             <div class="col-12 mt-3 p-3 bg-light border rounded-3">
               <div class="d-flex justify-content-between align-items-center mb-2">
                 <label class="form-label fw-bold text-primary m-0"><i class="fa-solid fa-images me-1"></i>الصور الإضافية (مع وصف وتنسيق لكل صورة وتحكم بمكانها أعلى/منتصف/أسفل):</label>
@@ -514,7 +648,7 @@
         </div>
       </div>
 
-      <!-- Theme & UI Customization Tab -->
+      <!-- Theme Tab -->
       <div id="adminTabTheme" class="d-none">
         <form onsubmit="saveThemeSettings(event)">
           <h6 class="fw-bold small text-primary mb-3"><i class="fa-solid fa-palette me-1"></i>التحكم التفاعلي بالألوان والمظهر:</h6>
@@ -628,7 +762,7 @@
         </form>
       </div>
 
-      <!-- Team & Member Credentials Tab -->
+      <!-- Team Tab -->
       <div id="adminTabTeam" class="d-none">
         <form id="teamMemberForm" onsubmit="handleAddTeamMember(event)" class="p-3 bg-light rounded-3 mb-3 border">
           <input type="hidden" id="editingMemberKey" value="">
@@ -710,12 +844,120 @@
 
     </div>
 
-    <!-- Published News List -->
-    <div class="mb-3 d-flex justify-content-between align-items-center">
-      <h5 class="fw-bold text-dark m-0"><i class="fa-solid fa-newspaper text-primary me-2"></i>الأخبار والتقارير المنشورة</h5>
+    <!-- 📡 مرصد أخبار المنيا وجامعة المنيا (خاص للأعضاء والآدمن) -->
+    <section id="minyaWatch" class="d-none" aria-label="مرصد أخبار المنيا وجامعة المنيا">
+      <div class="d-flex justify-content-between align-items-center flex-wrap gap-2 mb-3 pb-2 border-bottom">
+        <h5 class="fw-bold text-dark m-0 d-flex align-items-center">
+          <i class="fa-solid fa-satellite-dish text-danger me-2"></i> مرصد أخبار المنيا وجامعة المنيا الذكي
+        </h5>
+        <div class="d-flex gap-2 align-items-center">
+          <button class="btn btn-sm btn-outline-warning text-dark fw-bold d-none" id="mwPinnedOnlyBtn" onclick="toggleMwPinnedFilter()">📌 المثبتة فقط</button>
+          <button class="btn btn-sm btn-outline-primary fw-bold" onclick="fetchMinyaNewsBackground(true)"><i class="fa-solid fa-rotate me-1"></i> تحديث</button>
+        </div>
+      </div>
+      
+      <div id="mwList" class="mw-grid"></div>
+
+      <div class="text-center mt-3 d-none" id="mwLoadMoreContainer">
+        <button class="btn btn-sm btn-outline-secondary rounded-pill px-4 fw-bold" id="mwLoadMoreBtn" onclick="loadMoreMinyaNews()">
+          عرض باقي الأخبار <i class="fa-solid fa-chevron-down ms-1"></i>
+        </button>
+      </div>
+    </section>
+
+    <!-- 📌 2. شبكة المانشيت الرئيسية المدمجة (تحميل فوري 0 ثانية) -->
+    <div id="youm7HeroGrid" class="youm7-main-grid">
+      <!-- الخبر الرئيسي (المانشيت) -->
+      <div class="main-hero-card" onclick="openFullNewsModal('init_news_1')">
+        <div class="hero-image-wrap">
+          <span class="badge bg-danger position-absolute top-0 right-0 m-3 z-3">مانشيت عاجل</span>
+          <img src="https://images.unsplash.com/photo-1585829365295-ab7cd400c167?auto=format&fit=crop&w=800&q=80" alt="المانشيت الرئيسي">
+          <div class="hero-overlay">
+            <h3 class="fw-bold text-white mb-2" style="line-height: 1.4;">انطلاق فعاليات المعرض السنوي لمشاريع تخرج قسم الصحافة والإعلام</h3>
+            <p class="text-light small m-0 d-none d-md-block">شهدت كلية التربية النوعية بجامعة المنيا انطلاق المعرض الصحفي السنوي لمشاريع التخرج بحضور قيادات الكلية وأعضاء هيئة التدريس.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- الأخبار الجانبية الثلاثة -->
+      <div class="side-news-grid">
+        <div class="side-news-card" onclick="openFullNewsModal('init_news_2')">
+          <img src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&fit=crop&w=300&q=80" alt="خبر جانبي">
+          <div>
+            <span class="badge bg-primary style-badge small mb-1" style="font-size: 0.65rem;">تقارير ميدانية</span>
+            <h6 class="fw-bold text-dark small m-0" style="line-height: 1.4;">جامعة المنيا تعلن جدول الفعاليات والأنشطة الطلابية</h6>
+            <span class="text-muted" style="font-size: 0.7rem;"><i class="fa-regular fa-clock me-1"></i>منذ ساعتين</span>
+          </div>
+        </div>
+
+        <div class="side-news-card" onclick="openFullNewsModal('init_news_1')">
+          <img src="https://images.unsplash.com/photo-1504711434969-e33886168f5c?auto=format&fit=crop&w=300&q=80" alt="خبر جانبي 2">
+          <div>
+            <span class="badge bg-success small mb-1" style="font-size: 0.65rem;">محليات</span>
+            <h6 class="fw-bold text-dark small m-0" style="line-height: 1.4;">تغطية خاصة لمؤتمرات الابتكار والتحول الرقمي</h6>
+            <span class="text-muted" style="font-size: 0.7rem;"><i class="fa-regular fa-clock me-1"></i>منذ 4 ساعات</span>
+          </div>
+        </div>
+
+        <div class="side-news-card" onclick="openFullNewsModal('init_news_2')">
+          <img src="https://images.unsplash.com/photo-1461896836934-ffe607ba8211?auto=format&fit=crop&w=300&q=80" alt="خبر جانبي 3">
+          <div>
+            <span class="badge bg-warning text-dark small mb-1" style="font-size: 0.65rem;">القسم الرياضي</span>
+            <h6 class="fw-bold text-dark small m-0" style="line-height: 1.4;">اختتام دورات الأنشطة الرياضية بين الكليات</h6>
+            <span class="text-muted" style="font-size: 0.7rem;"><i class="fa-regular fa-clock me-1"></i>أمس</span>
+          </div>
+        </div>
+      </div>
     </div>
+
+    <!-- Published News List & Category Blocks Container -->
+    <div class="mb-3 d-flex justify-content-between align-items-center border-bottom pb-2">
+      <h5 class="fw-bold text-dark m-0 d-flex align-items-center">
+        <i class="fa-solid fa-layer-group text-danger me-2"></i> قطاعات الأقسام والأخبار المنشورة
+      </h5>
+    </div>
+
+    <!-- 📌 3. حاوي الأخبار المدمج فوراً لحل مشكلة التحميل اللحظي (0 ثانية) -->
     <div id="newsFeed">
-      <div class="text-center py-4 text-muted"><i class="fa-solid fa-spinner fa-spin me-2"></i> جاري التحميل...</div>
+      <!-- خبر مدمج أول -->
+      <div class="news-card">
+        <div class="card-media-wrapper">
+          <span class="news-badge">عاجل</span>
+          <img src="https://images.unsplash.com/photo-1585829365295-ab7cd400c167?auto=format&fit=crop&w=800&q=80" alt="خبر عاجل" onclick="openFullNewsModal('init_news_1')">
+        </div>
+        <div class="card-content">
+          <h5 class="card-news-title" style="color: #d32f2f;" onclick="openFullNewsModal('init_news_1')">انطلاق فعاليات المعرض السنوي لمشاريع تخرج قسم الصحافة والإعلام</h5>
+          <p class="text-secondary small mb-2" style="line-height: 1.6;">شهدت كلية التربية النوعية بجامعة المنيا انطلاق المعرض الصحفي السنوي لمشاريع التخرج، بحضور قيادات الكلية وأعضاء هيئة التدريس.</p>
+          
+          <div class="d-flex justify-content-between align-items-center text-muted small border-top pt-2">
+            <div class="d-flex align-items-center gap-1">
+              <img src="https://via.placeholder.com/150" style="width: 24px; height: 24px; border-radius: 50%;">
+              <span>صحيفة الشروق الرقمية</span>
+            </div>
+            <span>اليوم</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- خبر مدمج ثان -->
+      <div class="news-card">
+        <div class="card-media-wrapper">
+          <span class="news-badge">تقارير ميدانية</span>
+          <img src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&fit=crop&w=800&q=80" alt="تقرير" onclick="openFullNewsModal('init_news_2')">
+        </div>
+        <div class="card-content">
+          <h5 class="card-news-title" style="color: #d32f2f;" onclick="openFullNewsModal('init_news_2')">جامعة المنيا تعلن جدول الفعاليات والأنشطة الطلابية للفصل الدراسي الحالي</h5>
+          <p class="text-secondary small mb-2" style="line-height: 1.6;">أعلنت إدارات رعاية الشباب بجامعة المنيا عن الخطة الشاملة للأنشطة الثقافية والفنية والرياضية للعام الجامعي.</p>
+          
+          <div class="d-flex justify-content-between align-items-center text-muted small border-top pt-2">
+            <div class="d-flex align-items-center gap-1">
+              <img src="https://via.placeholder.com/150" style="width: 24px; height: 24px; border-radius: 50%;">
+              <span>فريق التحرير</span>
+            </div>
+            <span>أمس</span>
+          </div>
+        </div>
+      </div>
     </div>
 
     <!-- Reporter Submission Section -->
@@ -803,7 +1045,6 @@
             <input type="hidden" id="reporterNewsAudioUrl">
           </div>
 
-          <!-- صور إضافية للمراسل -->
           <div class="col-12 mt-3 p-3 bg-light border rounded-3">
             <div class="d-flex justify-content-between align-items-center mb-2">
               <label class="form-label fw-bold text-warning-emphasis m-0"><i class="fa-solid fa-images me-1"></i>الصور الإضافية (مع وصف وتنسيق لكل صورة وتحكم بمكانها أعلى/منتصف/أسفل):</label>
@@ -872,7 +1113,7 @@
     <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable">
       <div class="modal-content rounded-4 border-0">
         <div class="modal-header border-0 pb-0">
-          <span class="badge bg-warning text-dark fw-bold px-3 py-1" id="modalCategory">القسم</span>
+          <span class="badge bg-danger text-white fw-bold px-3 py-1" id="modalCategory">القسم</span>
           <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
         </div>
         <div class="modal-body p-3">
@@ -886,23 +1127,24 @@
             </div>
           </div>
 
-          <!-- حاوي الصور العلوية -->
+          <!-- 📌 أدوات القراءة وحجم الخط المقتبسة من مواقع الأخبار الكبرى -->
+          <div class="d-flex justify-content-between align-items-center p-2 bg-light rounded-3 mb-3 border">
+            <span class="small text-muted" id="modalReadingTime">
+              <i class="fa-regular fa-clock me-1 text-danger"></i> زمن القراءة: 1 دقيقة
+            </span>
+            <div class="d-flex align-items-center gap-1">
+              <span class="small fw-bold text-secondary me-1">حجم الخط:</span>
+              <button class="btn btn-sm btn-outline-secondary py-0 px-2 fw-bold" onclick="changeModalFontSize(1.5)" title="تكبير الخط">+A</button>
+              <button class="btn btn-sm btn-outline-secondary py-0 px-2 fw-bold" onclick="changeModalFontSize(-1.5)" title="تصغير الخط">-A</button>
+            </div>
+          </div>
+
           <div id="modalTopImagesContainer"></div>
-          
-          <!-- عنصر الفيديو الرئيسي أو الموضع للتحكم بمكانه -->
           <div id="modalVideoContainer" class="my-3 text-center"></div>
-
-          <!-- عنصر المشغل الصوتي الرئيسي -->
           <div id="modalAudioContainer" class="my-3"></div>
-
           <div class="lh-lg text-secondary mb-3 fs-6" id="modalBody"></div>
-
-          <!-- حاوي الصور في المنتصف -->
           <div id="modalMiddleImagesContainer"></div>
-
-          <!-- حاوي الصور السفلية -->
           <div id="modalBottomImagesContainer"></div>
-
           <div id="modalReactionContainer" class="mb-3"></div>
 
           <hr class="my-3">
@@ -1027,6 +1269,7 @@
     let currentCategoryFilter = 'الكل';
     let isAdminLoggedIn = false;
     let currentLoggedInMember = null;
+    let currentModalFontSizePx = 16;
 
     let fullNewsModalInstance = null;
     let imageZoomModalInstance = null;
@@ -1035,10 +1278,51 @@
     let currentAdminUsername = "admin";
     let currentAdminPassword = "123";
 
+    // إعدادات مرصد أخبار المنيا
+    const MW_CACHE_KEY = 'shorouk_minya_news_cache_v2';
+    const MW_PIN_KEY = 'shorouk_minya_news_pins_v2';
+    const MW_BATCH_SIZE = 6;
+
+    let mwAllFetchedItems = [];
+    let mwDisplayedCount = 0;
+    let mwIsLoading = false;
+    let mwPinnedOnly = false;
+
+    // ============================================================
+    // ⚡ الأخبار الأولية المدمجة في الكود (تحميل فوري في 0.00 ثانية)
+    // ============================================================
+    const DEFAULT_INITIAL_NEWS = {
+      "init_news_1": {
+        title: "انطلاق فعاليات المعرض السنوي لمشاريع تخرج قسم الصحافة والإعلام",
+        category: "عاجل",
+        author: "صحيفة الشروق الرقمية",
+        summary: "شهدت كلية التربية النوعية بجامعة المنيا انطلاق المعرض الصحفي السنوي لمشاريع التخرج، بحضور قيادات الكلية وأعضاء هيئة التدريس.",
+        body: "<p>شهدت كلية التربية النوعية بجامعة المنيا اليوم افتتاح معرض مشاريع التخرج لقسم الصحافة والإعلام، حيث تضمن المعرض عرض المنصات والتطبيقات الرقمية المبتكرة من إعداد الطلاب.</p>",
+        imageUrl: "https://images.unsplash.com/photo-1585829365295-ab7cd400c167?auto=format&fit=crop&w=800&q=80",
+        createdAt: Date.now() - 3600000,
+        status: "approved",
+        reactions: { love: 15, like: 32, dislike: 0 }
+      },
+      "init_news_2": {
+        title: "جامعة المنيا تعلن جدول الفعاليات والأنشطة الطلابية للفصل الدراسي الحالي",
+        category: "تقارير ميدانية",
+        author: "فريق التحرير",
+        summary: "أعلنت إدارات رعاية الشباب بجامعة المنيا عن الخطة الشاملة للأنشطة الثقافية والفنية والرياضية للعام الجامعي.",
+        body: "<p>أطلقت جامعة المنيا حزمة من المسابقات والأنشطة الطلابية المتنوعة بهدف تنمية مهارات الطلاب في مختلف المجالات الثقافية والفنية والتكنولوجية.</p>",
+        imageUrl: "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&fit=crop&w=800&q=80",
+        createdAt: Date.now() - 86400000,
+        status: "approved",
+        reactions: { love: 22, like: 45, dislike: 1 }
+      }
+    };
+
     document.addEventListener("DOMContentLoaded", () => {
       fullNewsModalInstance = new bootstrap.Modal(document.getElementById('fullNewsModal'));
       imageZoomModalInstance = new bootstrap.Modal(document.getElementById('imageZoomModal'));
       unifiedLoginModalInstance = new bootstrap.Modal(document.getElementById('unifiedLoginModal'));
+
+      // تحديث شريط التاريخ والخدمات العلوي تلقائياً
+      updateHeaderDateDisplay();
 
       listenToAdminCredentials();
       listenToCategories();
@@ -1050,6 +1334,214 @@
       listenToThemeSettings();
 
       toggleReporterTypeFields('member');
+      checkMinyaWatchAccess();
+    });
+
+    function updateHeaderDateDisplay() {
+      const el = document.getElementById('currentDateDisplay');
+      if (!el) return;
+      const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+      el.innerText = new Date().toLocaleDateString('ar-EG', options);
+    }
+
+    /* ---------- نظام أمان واستدعاء المرصد للأعضاء والأدمن ---------- */
+    function checkMinyaWatchAccess() {
+      const sec = document.getElementById('minyaWatch');
+      if (!sec) return;
+
+      const isAuthorized = isAdminLoggedIn || (currentLoggedInMember !== null);
+
+      if (!isAuthorized) {
+        sec.classList.add('d-none');
+        return;
+      }
+
+      sec.classList.remove('d-none');
+
+      const cached = localStorage.getItem(MW_CACHE_KEY);
+      if (cached) {
+        try {
+          mwAllFetchedItems = JSON.parse(cached);
+          mwDisplayedCount = MW_BATCH_SIZE;
+          renderMinyaObservatoryItems();
+        } catch(e) {
+          showMinyaSkeletons();
+        }
+      } else {
+        showMinyaSkeletons();
+      }
+
+      fetchMinyaNewsBackground();
+    }
+
+    function showMinyaSkeletons() {
+      const list = document.getElementById('mwList');
+      if (!list) return;
+      let skelHtml = '';
+      for (let i = 0; i < 6; i++) {
+        skelHtml += '<div class="mw-skel p-3" style="height: 120px;"></div>';
+      }
+      list.innerHTML = skelHtml;
+    }
+
+    function fetchMinyaNewsBackground(force = false) {
+      if (mwIsLoading) return;
+      mwIsLoading = true;
+
+      const queries = [
+        { name: "جامعة المنيا", q: "جامعة المنيا" },
+        { name: "محافظة المنيا", q: "محافظة المنيا" }
+      ];
+
+      const fetchPromises = queries.map(src => {
+        const rss = "https://news.google.com/rss/search?q=" + encodeURIComponent(src.q) + "+when:14d&hl=ar&gl=EG&ceid=EG:ar";
+        const apiUrl = "https://api.rss2json.com/v1/api.json?rss_url=" + encodeURIComponent(rss);
+        
+        return fetch(apiUrl)
+          .then(res => res.json())
+          .then(data => {
+            if (data.status !== 'ok' || !data.items) return [];
+            return data.items.map(it => ({
+              title: (it.title || "").replace(/\s+-\s+[^-]+$/, "").trim(),
+              link: it.link,
+              source: (it.author || (it.title.match(/-\s+([^-]+)$/) || [])[1] || src.name).trim(),
+              date: it.pubDate || "",
+              category: src.name
+            }));
+          })
+          .catch(() => []);
+      });
+
+      Promise.all(fetchPromises).then(results => {
+        mwIsLoading = false;
+        let combined = [];
+        results.forEach(arr => { combined = combined.concat(arr); });
+
+        const seen = {};
+        const freshItems = combined.filter(item => {
+          if (!item.title || seen[item.title]) return false;
+          seen[item.title] = true;
+          return true;
+        }).sort((a, b) => new Date(b.date || 0) - new Date(a.date || 0));
+
+        if (freshItems.length > 0) {
+          mwAllFetchedItems = freshItems;
+          try {
+            localStorage.setItem(MW_CACHE_KEY, JSON.stringify(freshItems));
+          } catch(e){}
+
+          if (mwDisplayedCount === 0) mwDisplayedCount = MW_BATCH_SIZE;
+          renderMinyaObservatoryItems();
+        } else if (!localStorage.getItem(MW_CACHE_KEY)) {
+          const list = document.getElementById('mwList');
+          if (list) list.innerHTML = '<div class="text-center py-4 text-muted w-100" style="grid-column: 1/-1;">لا توجد تقارير حالياً</div>';
+        }
+      });
+    }
+
+    function getMwPins() {
+      try { return JSON.parse(localStorage.getItem(MW_PIN_KEY) || "[]"); } catch (e) { return []; }
+    }
+    function setMwPins(p) {
+      try { localStorage.setItem(MW_PIN_KEY, JSON.stringify(p)); } catch (e) {}
+    }
+
+    function renderMinyaObservatoryItems() {
+      const list = document.getElementById('mwList');
+      if (!list) return;
+
+      const pins = getMwPins();
+      const pinLinks = pins.map(p => p.link);
+      
+      let itemsToRender = mwPinnedOnly ? pins : pins.concat(mwAllFetchedItems.filter(i => !pinLinks.includes(i.link)));
+      
+      const pinBtn = document.getElementById('mwPinnedOnlyBtn');
+      if (pinBtn) pinBtn.classList.toggle('d-none', pins.length === 0);
+
+      if (itemsToRender.length === 0) {
+        list.innerHTML = '<div class="text-center py-4 text-muted w-100" style="grid-column: 1/-1;">لا توجد تقارير متاحة حالياً</div>';
+        return;
+      }
+
+      const visibleSlice = itemsToRender.slice(0, mwDisplayedCount);
+
+      const html = visibleSlice.map(item => {
+        const isPinned = pinLinks.includes(item.link);
+        const formattedDate = item.date ? new Date(item.date).toLocaleDateString('ar-EG', { day: 'numeric', month: 'short' }) : '';
+
+        return `
+          <div class="card p-3 shadow-sm border rounded-4 mw-card ${isPinned ? 'border-warning bg-warning-subtle' : ''}">
+            <div class="d-flex justify-content-between align-items-center mb-2">
+              <span class="badge ${item.category === 'جامعة المنيا' ? 'bg-primary' : 'bg-success'} small">${item.category}</span>
+              <span class="text-muted" style="font-size: 0.75rem;"><i class="fa-regular fa-clock me-1"></i>${formattedDate}</span>
+            </div>
+            <h6 class="fw-bold mb-2">
+              <a href="${item.link}" target="_blank" rel="noopener noreferrer" class="text-decoration-none text-dark mw-title-link">
+                ${item.title}
+              </a>
+            </h6>
+            <div class="d-flex justify-content-between align-items-center mt-auto pt-2 border-top">
+              <span class="small text-secondary"><i class="fa-solid fa-newspaper me-1"></i>${item.source}</span>
+              ${isAdminLoggedIn ? `
+                <button class="btn btn-sm ${isPinned ? 'btn-warning text-dark' : 'btn-outline-secondary'} py-0 px-2 small fw-bold" onclick="toggleMwPin('${encodeURIComponent(item.link)}')">
+                  ${isPinned ? '📌 مثبت' : '📌 تثبيت'}
+                </button>
+              ` : ''}
+            </div>
+          </div>
+        `;
+      }).join('');
+
+      list.innerHTML = html;
+
+      const loadMoreContainer = document.getElementById('mwLoadMoreContainer');
+      if (loadMoreContainer) {
+        if (mwDisplayedCount < itemsToRender.length) {
+          loadMoreContainer.classList.remove('d-none');
+        } else {
+          loadMoreContainer.classList.add('d-none');
+        }
+      }
+    }
+
+    function loadMoreMinyaNews() {
+      mwDisplayedCount += MW_BATCH_SIZE;
+      renderMinyaObservatoryItems();
+    }
+
+    function toggleMwPin(encodedLink) {
+      const link = decodeURIComponent(encodedLink);
+      let pins = getMwPins();
+      const existingIdx = pins.findIndex(p => p.link === link);
+
+      if (existingIdx > -1) {
+        pins.splice(existingIdx, 1);
+      } else {
+        const item = mwAllFetchedItems.find(i => i.link === link);
+        if (item) pins.unshift(item);
+      }
+      setMwPins(pins);
+      renderMinyaObservatoryItems();
+    }
+
+    function toggleMwPinnedFilter() {
+      mwPinnedOnly = !mwPinnedOnly;
+      const btn = document.getElementById('mwPinnedOnlyBtn');
+      if (btn) btn.classList.toggle('active', mwPinnedOnly);
+      renderMinyaObservatoryItems();
+    }
+
+    window.addEventListener('scroll', () => {
+      const sec = document.getElementById('minyaWatch');
+      if (!sec || sec.classList.contains('d-none')) return;
+
+      const rect = sec.getBoundingClientRect();
+      if (rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) + 100) {
+        if (mwDisplayedCount < mwAllFetchedItems.length && !mwIsLoading) {
+          mwDisplayedCount += 4;
+          renderMinyaObservatoryItems();
+        }
+      }
     });
 
     function toggleDarkMode() { document.body.classList.toggle('dark-mode'); }
@@ -1114,6 +1606,7 @@
       if (currentLoggedInMember) logoutMember();
       
       unifiedLoginModalInstance.hide();
+      checkMinyaWatchAccess();
       alert("أهلاً بك كـ زائر في صحيفة الشروق الرقمية!");
     }
 
@@ -1404,7 +1897,8 @@
         document.getElementById('reporterAuthor').value = foundMember.name;
         document.getElementById('reporterSecretIdInput').value = foundMember.secretId;
 
-        alert(`تم تسجيل دخول العضو (${foundMember.name}) بنجاح! سيتم إرفاق صورتك المسجلة مع كل خبر تنشره.`);
+        checkMinyaWatchAccess();
+        alert(`تم تسجيل دخول العضو (${foundMember.name}) بنجاح!`);
       } else {
         alert("بيانات الدخول أو الرقم التعريفي غير صحيحة!");
       }
@@ -1415,6 +1909,7 @@
       document.getElementById('memberLoggedInBanner').classList.add('d-none');
       document.getElementById('reporterSecretIdInput').value = '';
       document.getElementById('reporterAuthor').value = '';
+      checkMinyaWatchAccess();
       alert("تم تسجيل الخروج وتفعيل وضع القارئ العادي.");
     }
 
@@ -1765,10 +2260,42 @@
       });
     }
 
+    /* ============================================================
+       ⚡ دالة الاستماع الفوري ومزامنة الأخبار (0.00 ثانية بدون أي تعليق)
+    ============================================================ */
     function listenToFirebaseNews() {
+      // 1. القراءة الفورية من Cache أو الأخبار الأولية المدمجة
+      const cachedNews = localStorage.getItem('shorouk_published_news_cache');
+      if (cachedNews) {
+        try {
+          const parsed = JSON.parse(cachedNews);
+          allNewsData = (parsed && Object.keys(parsed).length > 0) ? parsed : DEFAULT_INITIAL_NEWS;
+        } catch (e) {
+          allNewsData = DEFAULT_INITIAL_NEWS;
+        }
+      } else {
+        allNewsData = DEFAULT_INITIAL_NEWS;
+      }
+      
+      // عرض الأخبار وتحديث شبكة اليوم السابع فوراً
+      renderNewsFeed();
+      updateYoum7HeroGrid();
+
+      // 2. الاستماع الحقيقي في الخلفية من Firebase
       db.ref('news').on('value', (snapshot) => {
-        allNewsData = snapshot.val() || {};
+        const liveData = snapshot.val();
+        
+        if (liveData && Object.keys(liveData).length > 0) {
+          allNewsData = liveData;
+          try {
+            localStorage.setItem('shorouk_published_news_cache', JSON.stringify(allNewsData));
+          } catch (e) {}
+        } else {
+          allNewsData = DEFAULT_INITIAL_NEWS;
+        }
+
         renderNewsFeed();
+        updateYoum7HeroGrid();
         renderPendingNewsList();
 
         const activeKey = document.getElementById('currentNewsKeyForComment').value;
@@ -1779,6 +2306,51 @@
           }
         }
       });
+    }
+
+    function updateYoum7HeroGrid() {
+      const heroGrid = document.getElementById('youm7HeroGrid');
+      if (!heroGrid) return;
+
+      const approvedKeys = Object.keys(allNewsData).filter(k => allNewsData[k].status === 'approved');
+      if (approvedKeys.length === 0) return;
+
+      const mainKey = approvedKeys[0];
+      const mainItem = allNewsData[mainKey];
+
+      const sideKeys = approvedKeys.slice(1, 4);
+
+      let sideHtml = '';
+      sideKeys.forEach(sKey => {
+        const sItem = allNewsData[sKey];
+        sideHtml += `
+          <div class="side-news-card" onclick="openFullNewsModal('${sKey}')">
+            <img src="${sItem.imageUrl || 'https://images.unsplash.com/photo-1504711434969-e33886168f5c?auto=format&fit=crop&w=300&q=80'}" alt="${sItem.title}">
+            <div>
+              <span class="badge bg-danger small mb-1" style="font-size: 0.65rem;">${sItem.category || 'خبر'}</span>
+              <h6 class="fw-bold text-dark small m-0" style="line-height: 1.4;">${sItem.title}</h6>
+              <span class="text-muted" style="font-size: 0.7rem;"><i class="fa-regular fa-clock me-1"></i>${new Date(sItem.createdAt || Date.now()).toLocaleDateString('ar-EG')}</span>
+            </div>
+          </div>
+        `;
+      });
+
+      heroGrid.innerHTML = `
+        <div class="main-hero-card" onclick="openFullNewsModal('${mainKey}')">
+          <div class="hero-image-wrap">
+            <span class="badge bg-danger position-absolute top-0 right-0 m-3 z-3">مانشيت عاجل</span>
+            <img src="${mainItem.imageUrl || 'https://images.unsplash.com/photo-1585829365295-ab7cd400c167?auto=format&fit=crop&w=800&q=80'}" alt="${mainItem.title}">
+            <div class="hero-overlay">
+              <h3 class="fw-bold text-white mb-2" style="line-height: 1.4;">${mainItem.title}</h3>
+              <p class="text-light small m-0 d-none d-md-block">${mainItem.summary || ''}</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="side-news-grid">
+          ${sideHtml || '<div class="text-muted small">متابعة الأخبار الآن...</div>'}
+        </div>
+      `;
     }
 
     function renderPendingNewsList() {
@@ -1826,7 +2398,7 @@
       }
 
       if (filteredKeys.length === 0) {
-        container.innerHTML = `<div class="text-center py-4 text-muted small"><i class="fa-solid fa-folder-open fs-3 d-block mb-1"></i> لا توجد أخبار منشورة حالياً.</div>`;
+        container.innerHTML = `<div class="text-center py-4 text-muted small"><i class="fa-solid fa-folder-open fs-3 d-block mb-1"></i> لا توجد أخبار منشورة حالياً في هذا القسم.</div>`;
         return;
       }
 
@@ -1889,13 +2461,32 @@
       }).join('');
     }
 
+    function changeModalFontSize(delta) {
+      const bodyEl = document.getElementById('modalBody');
+      if (!bodyEl) return;
+      currentModalFontSizePx = Math.min(28, Math.max(12, currentModalFontSizePx + delta));
+      bodyEl.style.fontSize = currentModalFontSizePx + 'px';
+    }
+
     function openFullNewsModal(key) {
-      const item = allNewsData[key];
+      let item = allNewsData[key];
+      if (!item && DEFAULT_INITIAL_NEWS[key]) {
+        item = DEFAULT_INITIAL_NEWS[key];
+      }
       if (!item) return;
 
       document.getElementById('modalCategory').innerText = item.category || 'خبر';
       document.getElementById('modalTitle').innerText = item.title;
-      document.getElementById('modalBody').innerHTML = item.body || '';
+      
+      const modalBody = document.getElementById('modalBody');
+      modalBody.innerHTML = item.body || '';
+      modalBody.style.fontSize = currentModalFontSizePx + 'px';
+
+      // 📌 حساب تقدير زمن القراءة
+      const wordCount = (item.body || '').replace(/<[^>]*>?/gm, '').trim().split(/\s+/).length;
+      const readTimeMinutes = Math.max(1, Math.ceil(wordCount / 130));
+      document.getElementById('modalReadingTime').innerHTML = `<i class="fa-regular fa-clock me-1 text-danger"></i> زمن القراءة: ${readTimeMinutes} دقيقة`;
+
       document.getElementById('modalNewsDate').innerText = new Date(item.createdAt || Date.now()).toLocaleString('ar-EG');
       document.getElementById('currentNewsKeyForComment').value = key;
 
@@ -2358,6 +2949,8 @@
         unifiedLoginModalInstance.hide();
         document.getElementById('adminPanel').classList.remove('d-none');
         renderNewsFeed();
+        updateYoum7HeroGrid();
+        checkMinyaWatchAccess();
         alert("تم تسجيل دخول الأدمن بنجاح!");
       } else {
         alert("بيانات دخول الأدمن غير صحيحة!");
@@ -2368,6 +2961,8 @@
       isAdminLoggedIn = false;
       document.getElementById('adminPanel').classList.add('d-none');
       renderNewsFeed();
+      updateYoum7HeroGrid();
+      checkMinyaWatchAccess();
       alert("تم خروج الأدمن بنجاح.");
     }
 
@@ -2384,7 +2979,7 @@
       if (tabName === 'publish') document.getElementById('adminTabPublish').classList.remove('d-none');
       else if (tabName === 'categories') document.getElementById('adminTabCategories').classList.remove('d-none');
       else if (tabName === 'pending') document.getElementById('adminTabPending').classList.remove('d-none');
-      else if (tabName === 'comments') document.getElementById('adminTabComments').classList.add('d-none') || document.getElementById('adminTabComments').classList.remove('d-none');
+      else if (tabName === 'comments') document.getElementById('adminTabComments').classList.remove('d-none');
       else if (tabName === 'theme') document.getElementById('adminTabTheme').classList.remove('d-none');
       else if (tabName === 'team') document.getElementById('adminTabTeam').classList.remove('d-none');
       else if (tabName === 'about') document.getElementById('adminTabAbout').classList.remove('d-none');
